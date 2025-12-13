@@ -1,11 +1,11 @@
-#Project: Multi-Year Workforce Performance and Pay Equity Modeling vs Business Outcomes Goal
+<b> Project: Multi-Year Workforce Performance and Pay Equity Modeling vs Business Outcomes Goal</b>
 
 This project builds an integrated, multi-year workforce analytics and business impact modeling pipeline that connects:
 Employee lifecycle data (hire, termination, tenure)
 Effective-dated compensation and performance history
 Business unit KPIs (revenue, productivity, vacancies, quality)
 
-Predictive modeling for:
+<b>Predictive modeling for:</b>
 Attrition risk (via a stay probability model)
 Next-period revenue forecasting
 KPI “what-if” impact analysis
@@ -13,55 +13,49 @@ KPI “what-if” impact analysis
 The goal is not just prediction, but decision support:
 understanding which workforce and operational levers matter most and how changes in those levers are expected to impact business outcomes.
 
-Key Design Principles
-Time-aware panel modeling
-All models are trained on employee-month or BU-month snapshots, strictly avoiding future leakage.
+<b>Key Design Principles</b>
+1. Time-aware panel modeling.  All models are trained on employee-month or BU-month snapshots, strictly avoiding future leakage.
 
-Effective-dated joins
-Compensation and performance history are attached using robust groupwise as-of joins, not naive merges.
+2. Effective-dated joins.  Compensation and performance history are attached using robust groupwise as-of joins, not naive merges.
 
-Stay modeling (not naive attrition classification)
-The model predicts probability of staying employed over a forward horizon.
-Attrition risk is derived as 1 − P(stay) to avoid inverted signal issues common in HR panel data.
+3. Stay modeling (not naive attrition classification) The model predicts probability of staying employed over a forward horizon. Attrition risk is derived as 1 − P(stay) to avoid inverted signal issues common in HR panel data.
 
-Business-level modeling
-Revenue forecasting is performed at the business unit–period level, not the employee level, preventing duplication bias.
+4. Business-level modeling.  Revenue forecasting is performed at the business unit–period level, not the employee level, preventing duplication bias.
 
-Model-based KPI impact analysis
-Revenue models are reused to generate controlled “what-if” scenarios for KPI changes.
+5. Model-based KPI impact analysi.  Revenue models are reused to generate controlled “what-if” scenarios for KPI changes.
 
-Data Inputs
+<b>Data Inputs</b>
 Expected CSV files in the project root:
-employees.csv
 
+<b>employees.csv</b>
 Required columns:
-employee_id
-hire_date
-term_date (nullable)
-business_unit_id
+- employee_id
+- hire_date
+- term_date (nullable)
+- business_unit_id
 Optional: job family, location, role attributes
 
-comp_history.csv
+<b>comp_history.csv</b>
 Effective-dated compensation records:
 employee_id
 effective_date
 Examples:
-base_pay
-bonus_target
-compa_ratio
-merit_pct
-promo_flag
+- base_pay
+- bonus_target
+- compa_ratio
+- merit_pct
+- promo_flag
 
-perf_history.csv
+<b>perf_history.csv</b>
 Performance reviews:
-employee_id
-review_date
-
+- employee_id
+- review_date
 Examples:
 rating
 calibrated_rating
 goal_attainment_pct
-business_kpi.csv
+
+<b>business_kpi.csv</b>
 Business unit KPIs by period:
 business_unit_id
 period_start
@@ -74,7 +68,7 @@ avg_vacancy_days
 quality_incidents
 headcount_proxy
 
-Pipeline Steps
+<b>Pipeline Steps</b>
 1. Employee–Month Panel Construction
 Builds a complete monthly panel from hire date through termination.
 Drops termination month and later rows to ensure “employed at snapshot” integrity.
@@ -113,7 +107,7 @@ Add 2 headcount
 Measures change in predicted next-period revenue.
 Outputs both detailed and summarized impact tables.
 
-Outputs
+<b>Outputs</b>
 Employee-Level
 panel_scored.csv
 Full employee-month dataset with predictions and features.
@@ -127,26 +121,26 @@ attrition_risk
 Business Unit–Level
 bu_period_features.csv
 
-Aggregated BU-period feature set.
+<b>Aggregated BU-period feature set.</b>
 bu_period_scored.csv
 BU-period revenue predictions.
 
-KPI Impact
+<b>KPI Impact</b>
 kpi_impact_output.csv
 BU-period predicted revenue deltas per KPI change.
 kpi_impact_summary.csv
 Summary statistics (mean, p10, p50, p90 impact per KPI).
 
-Interpreting Results
+<b>Interpreting Results</b>
 Attrition AUC ~0.60
 This is realistic for workforce data and represents meaningful ranking signal.
 PR-AUC should be compared to base rate
 Small absolute values are expected with rare attrition events.
-
 KPI impact is model-based, not causal
 Results should be interpreted as:
 “Holding other factors constant, the model predicts that improving KPI X by Y is associated with a change of Z in next-period revenue.”
-Configuration
+
+<b>Configuration</b>
 Key parameters live in the Config dataclass:
 Prediction horizon
 Train/test split window
@@ -154,7 +148,7 @@ Minimum history length
 Top-K risk flagging rate
 KPI impact step sizes
 
-Intended Use
+<b>Intended Use</b>
 This project is designed for:
 Workforce planning and scenario modeling
 HR–Finance–Operations alignment
