@@ -48,7 +48,7 @@ Business unit KPIs by period:
 
 <b>Attrition Risk Model (3-month horizon)</b><br>
 
-<ul> <li>Test split start date: 2025-05-01</li> <li>Positive rate (attrition in horizon): 2.04%</li> <li>ROC-AUC: 0.941</li> <li>PR-AUC: 0.244</li> <li>Lift @ Top 10% risk: 9.17x</li> </ul>
+<ul> <li>Test split start date: 2025-05-01</li> <li>Positive rate (attrition in horizon): 2.04%</li> <li>ROC-AUC: 0.941 (will continue to evaluate as .941 signals a leak)</li> <li>PR-AUC: 0.244</li> <li>Lift @ Top 10% risk: 9.17x</li> </ul>
 
 At a Top-10% risk threshold (stay probability <= 0.60), the model captures approximately 92% of attrition events while flagging 10% of the population, providing strong prioritization power for targeted intervention in a highly imbalanced setting.
 <br><br>
