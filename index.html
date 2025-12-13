@@ -2,276 +2,96 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>Impact Audit</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Impact Audit | Workforce Practices vs Business Outcomes</title>
-  <meta name="description" content="A multi-year workforce analytics and business impact modeling pipeline connecting performance, compensation, attrition risk, and revenue outcomes." />
   <style>
-    :root{
-      --bg:#0b1020;
-      --card:#101a33;
-      --text:#e7ecff;
-      --muted:#b7c2ff;
-      --line:rgba(231,236,255,0.14);
-      --accent:#7aa2ff;
-      --accent2:#8ef0d0;
-      --shadow: 0 12px 32px rgba(0,0,0,0.35);
-      --radius: 16px;
-      --max: 1100px;
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      margin: 0;
+      padding: 2rem;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background: radial-gradient(900px 500px at 20% 0%, rgba(122,162,255,0.18), transparent 60%),
-                  radial-gradient(900px 500px at 80% 0%, rgba(142,240,208,0.12), transparent 60%),
-                  var(--bg);
-      color:var(--text);
-      line-height:1.5;
+    .container {
+      max-width: 960px;
+      margin: auto;
     }
-    a{color:var(--text); text-decoration:none}
-    a:hover{color:white}
-    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 70px;}
-    .topbar{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding:10px 12px; border:1px solid var(--line);
-      border-radius: 14px; background: rgba(16,26,51,0.55); backdrop-filter: blur(6px);
-      box-shadow: var(--shadow);
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
     }
-    .brand{display:flex; align-items:center; gap:10px;}
-    .dot{width:12px; height:12px; border-radius:50%; background: linear-gradient(135deg, var(--accent), var(--accent2));}
-    .brand b{font-weight:700; letter-spacing:0.2px}
-    .nav{display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end}
-    .nav a{font-size:14px; color:var(--muted); padding:8px 10px; border-radius:12px}
-    .nav a:hover{background: rgba(231,236,255,0.06); color:var(--text)}
-    .hero{padding:40px 6px 18px}
-    .kicker{color:var(--muted); font-size:14px; letter-spacing:0.3px; text-transform:uppercase}
-    h1{margin:10px 0 10px; font-size:38px; line-height:1.1}
-    .subtitle{max-width: 820px; font-size:17px; color:var(--muted)}
-    .ctaRow{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
-    .btn{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:12px 14px; border-radius: 14px;
-      border:1px solid var(--line);
-      background: rgba(231,236,255,0.06);
-      color:var(--text);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-      font-weight:600;
+    h2 {
+      margin-top: 2rem;
+      color: #93c5fd;
     }
-    .btn.primary{
-      background: linear-gradient(135deg, rgba(122,162,255,0.25), rgba(142,240,208,0.18));
-      border-color: rgba(122,162,255,0.35);
+    p {
+      line-height: 1.6;
+      color: #d1d5db;
     }
-    .btn small{color:var(--muted); font-weight:500}
-    .grid{display:grid; grid-template-columns: 1.2fr 0.8fr; gap:16px; margin-top:18px}
-    @media (max-width: 900px){ .grid{grid-template-columns: 1fr;} h1{font-size:32px} }
-    .card{
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(16,26,51,0.55);
-      backdrop-filter: blur(6px);
-      box-shadow: var(--shadow);
-      padding:18px;
+    .card {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
     }
-    .card h2{margin:0 0 10px; font-size:18px}
-    .card p{margin:8px 0; color:var(--muted)}
-    .pillRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
-    .pill{
-      font-size:12px; color:var(--text);
-      padding:7px 10px; border-radius: 999px;
-      border:1px solid var(--line);
-      background: rgba(231,236,255,0.05);
-    }
-    .section{margin-top:18px}
-    .section h3{margin:0 0 10px; font-size:16px}
-    .list{margin:0; padding-left:18px; color:var(--muted)}
-    .list li{margin:6px 0}
-    .twoCol{display:grid; grid-template-columns: 1fr 1fr; gap:16px}
-    @media (max-width: 900px){ .twoCol{grid-template-columns:1fr;} }
-    .metricBox{
-      border:1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(231,236,255,0.04);
-      padding:12px;
-      margin-top:10px;
-    }
-    .metricBox b{display:block; margin-bottom:6px}
-    .code{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 12px;
-      color: #d9e2ff;
-      background: rgba(0,0,0,0.25);
-      border: 1px solid rgba(231,236,255,0.12);
-      border-radius: 12px;
-      padding: 12px;
-      overflow-x:auto;
-    }
-    .footer{
-      margin-top:26px;
-      padding-top:16px;
-      border-top:1px solid var(--line);
-      color: var(--muted);
-      font-size: 13px;
-      display:flex;
-      justify-content:space-between;
-      flex-wrap:wrap;
-      gap:10px;
+    .tag {
+      display: inline-block;
+      background: #1e293b;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      margin-right: 0.5rem;
+      font-size: 0.85rem;
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="topbar">
-      <div class="brand">
-        <span class="dot"></span>
-        <div>
-          <b>Impact Audit</b><br />
-          <span style="color:var(--muted); font-size:12px;">Workforce practices → business outcomes</span>
-        </div>
-      </div>
-      <div class="nav">
-        <a href="#overview">Overview</a>
-        <a href="#method">Method</a>
-        <a href="#outputs">Outputs</a>
-        <a href="#dashboard">Dashboard</a>
-      </div>
+  <div class="container">
+    <h1>Impact Audit</h1>
+    <p>
+      A multi-year workforce analytics framework that connects
+      <b>performance, compensation, and attrition decisions</b>
+      to <b>business KPIs and future revenue</b>.
+    </p>
+
+    <div class="card">
+      <h2>The Problem</h2>
+      <p>
+        Organizations promote, reward, and manage performance every year —
+        but rarely measure whether those decisions actually produce
+        the workforce and results they need long-term.
+      </p>
     </div>
 
-    <div class="hero" id="overview">
-      <div class="kicker">Multi-year modeling pipeline</div>
-      <h1>How performance and reward practices shape long-term business results</h1>
-      <div class="subtitle">
-        This project links employee lifecycle, effective-dated compensation and performance history, and business-unit KPIs
-        to produce decision-ready outputs: attrition risk, next-period revenue forecasts, and KPI what-if impact estimates.
-      </div>
-
-      <div class="ctaRow">
-        <a class="btn primary" href="https://github.com/ryanbrush30/impact_audit" target="_blank" rel="noreferrer">
-          View repository <small>code + docs</small>
-        </a>
-        <a class="btn" href="#dashboard">
-          See dashboard design <small>executive pages</small>
-        </a>
-        <a class="btn" href="#outputs">
-          Understand outputs <small>what the files mean</small>
-        </a>
-      </div>
-
-      <div class="grid">
-        <div class="card">
-          <h2>What this answers</h2>
-          <p>
-            Leaders make performance decisions constantly: promotions, merit, recognition, development, and improvement actions.
-            This model asks whether those practices are producing the workforce the business needs today, and what that means in dollars.
-          </p>
-          <div class="pillRow">
-            <span class="pill">Time-aware panel modeling</span>
-            <span class="pill">Effective-dated joins</span>
-            <span class="pill">Stay model → attrition risk</span>
-            <span class="pill">BU-level revenue modeling</span>
-            <span class="pill">Model-based what-if impacts</span>
-          </div>
-
-          <div class="section">
-            <h3>Decision support focus</h3>
-            <ul class="list">
-              <li>Where is revenue exposed due to workforce instability?</li>
-              <li>Which operational levers move next-period revenue most?</li>
-              <li>How do changes in staffing dynamics translate into future outcomes?</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2>Core outputs</h2>
-          <div class="metricBox">
-            <b>Attrition risk</b>
-            <div style="color:var(--muted);">Employee-month risk scores using a stay probability model</div>
-          </div>
-          <div class="metricBox">
-            <b>Revenue forecast</b>
-            <div style="color:var(--muted);">Next-period BU revenue prediction from aggregated workforce features</div>
-          </div>
-          <div class="metricBox">
-            <b>KPI what-if impacts</b>
-            <div style="color:var(--muted);">Dollar deltas from controlled KPI changes using the trained revenue model</div>
-          </div>
-        </div>
-      </div>
+    <div class="card">
+      <h2>The Solution</h2>
+      <p>
+        Impact Audit reconstructs workforce history over time and models
+        how people practices shape KPIs and revenue — not just immediately,
+        but months and years later.
+      </p>
     </div>
 
-    <div class="twoCol" id="method">
-      <div class="card">
-        <h2>Method summary</h2>
-        <ul class="list">
-          <li><b>Time-aware snapshots:</b> employee-month and BU-month panels that avoid future leakage.</li>
-          <li><b>Effective-dated joins:</b> groupwise as-of attachment of compensation and performance history.</li>
-          <li><b>Stay modeling:</b> learn P(stay) over a forward horizon; derive attrition risk as 1 − P(stay).</li>
-          <li><b>BU-level revenue model:</b> prevent duplication bias by forecasting revenue at BU-period level.</li>
-          <li><b>What-if analysis:</b> reuse revenue model to price KPI changes into next-period dollars.</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h2>Interpretation guardrails</h2>
-        <ul class="list">
-          <li>Outputs are decision support, not causal proof.</li>
-          <li>What-if impacts are model-based marginal estimates.</li>
-          <li>Short-term effects can be negative for investments with delayed payoff.</li>
-          <li>Use concentration and lift for action targeting, not accuracy alone.</li>
-        </ul>
-      </div>
+    <div class="card">
+      <h2>What It Models</h2>
+      <span class="tag">Attrition Risk</span>
+      <span class="tag">Revenue Forecasting</span>
+      <span class="tag">KPI Impact</span>
+      <span class="tag">Workforce Strategy</span>
+      <span class="tag">Decision Governance</span>
     </div>
 
-    <div class="card section" id="outputs">
-      <h2>Outputs and what they mean</h2>
-      <ul class="list">
-        <li><b>panel_scored.csv:</b> employee-month panel with features and risk scores.</li>
-        <li><b>panel_scores_min.csv:</b> minimal employee-month scoring output for action lists.</li>
-        <li><b>bu_period_features.csv:</b> aggregated BU-period feature set used for revenue forecasting.</li>
-        <li><b>bu_period_scored.csv:</b> BU-period revenue predictions and residuals.</li>
-        <li><b>kpi_impact_output.csv:</b> BU-period predicted revenue deltas per KPI change.</li>
-        <li><b>kpi_impact_summary.csv:</b> summary statistics (mean, p10, p50, p90) per KPI impact.</li>
-      </ul>
+    <div class="card">
+      <h2>Why It Matters</h2>
+      <p>
+        This is not HR analytics.  
+        This is <b>workforce capital allocation analysis</b>.
+      </p>
     </div>
 
-    <div class="twoCol section" id="dashboard">
-      <div class="card">
-        <h2>Dashboard pages</h2>
-        <ul class="list">
-          <li><b>Executive overview:</b> predicted revenue, revenue-at-risk, expected exits, risk concentration.</li>
-          <li><b>Revenue at risk:</b> risk distribution, risk tiers, BU concentration, intervention list.</li>
-          <li><b>KPI impact:</b> ranked levers, what-if deltas in dollars, sensitivity summary.</li>
-          <li><b>Workforce shaping:</b> promotions, merit, performance patterns over time vs outcomes.</li>
-          <li><b>Scenarios:</b> combine levers to project revenue impact and tradeoffs.</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h2>Revenue-at-risk calculation</h2>
-        <p>This converts attrition risk into expected revenue exposure at the BU-period level.</p>
-        <div class="code">
-import pandas as pd<br><br>
-panel = pd.read_csv("panel_scored.csv")<br>
-bu = pd.read_csv("bu_period_scored.csv")<br><br>
-df = panel.merge(<br>
-&nbsp;&nbsp;bu[["business_unit","period","predicted_revenue_next_period","headcount"]],<br>
-&nbsp;&nbsp;on=["business_unit","period"], how="left"<br>
-)<br><br>
-df["revenue_exposure"] = df["predicted_revenue_next_period"] / df["headcount"]<br>
-df["revenue_risk"] = df["attrition_risk"] * df["revenue_exposure"]<br><br>
-print("Total Revenue at Risk:", df["revenue_risk"].sum())<br>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer">
-      <div>© 2025 Ryan Brush. All rights reserved.</div>
-      <div>
-        <a href="https://github.com/ryanbrush30/impact_audit" target="_blank" rel="noreferrer">Repository</a>
-        <span style="opacity:0.6;"> | </span>
-        <a href="#overview">Top</a>
-      </div>
-    </div>
+    <p style="margin-top:2rem; opacity:0.7;">
+      Built by Ryan Brush · Impact Audit Project
+    </p>
   </div>
 </body>
 </html>
