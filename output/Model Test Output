@@ -1,7 +1,7 @@
 Attrition model (bucketed risk)
 Split date (test starts): 2025-05-01
 Pos rate test (attrition in 3m): 0.0204
-Test AUC (binary label): 0.941
+Test AUC (binary label): 0.941 (looking for a leak in the attrition modeling)
 Test PR-AUC (binary label): 0.244
 Lift@Top-10%: 9.17x
 
