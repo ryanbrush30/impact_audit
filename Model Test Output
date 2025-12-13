@@ -1,0 +1,34 @@
+Attrition model (bucketed risk)
+Split date (test starts): 2025-05-01
+Pos rate test (attrition in 3m): 0.0204
+Test AUC (binary label): 0.941
+Test PR-AUC (binary label): 0.244
+Lift@Top-10%: 9.17x
+
+Best threshold (by F1) on attrition_in_3m: 1.000000
+              precision    recall  f1-score   support
+
+           0       0.99      0.97      0.98      5760
+           1       0.28      0.47      0.35       120
+
+    accuracy                           0.96      5880
+   macro avg       0.63      0.72      0.67      5880
+weighted avg       0.97      0.96      0.97      5880
+
+
+Top-10% threshold: 0.600000
+              precision    recall  f1-score   support
+
+           0       1.00      0.92      0.96      5760
+           1       0.19      0.92      0.31       120
+
+    accuracy                           0.92      5880
+   macro avg       0.59      0.92      0.63      5880
+weighted avg       0.98      0.92      0.94      5880
+
+
+Revenue next-period model (BU-period)
+Split date (test starts): 2025-04-01
+Test MAE: 402,136.24
+Test R2: 0.250
+
