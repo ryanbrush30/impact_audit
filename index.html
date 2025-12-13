@@ -133,23 +133,135 @@
         <a href="#method">Method</a>
         <a href="#outputs">Outputs</a>
         <a href="#dashboard">Dashboard</a>
-        <a href="#run">Run</a>
       </div>
     </div>
 
-@@ -265,25 +264,14 @@
+    <div class="hero" id="overview">
+      <div class="kicker">Multi-year modeling pipeline</div>
+      <h1>How performance and reward practices shape long-term business results</h1>
+      <div class="subtitle">
+        This project links employee lifecycle, effective-dated compensation and performance history, and business-unit KPIs
+        to produce decision-ready outputs: attrition risk, next-period revenue forecasts, and KPI what-if impact estimates.
+      </div>
+
+      <div class="ctaRow">
+        <a class="btn primary" href="https://github.com/ryanbrush30/impact_audit" target="_blank" rel="noreferrer">
+          View repository <small>code + docs</small>
+        </a>
+        <a class="btn" href="#dashboard">
+          See dashboard design <small>executive pages</small>
+        </a>
+        <a class="btn" href="#outputs">
+          Understand outputs <small>what the files mean</small>
+        </a>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>What this answers</h2>
+          <p>
+            Leaders make performance decisions constantly: promotions, merit, recognition, development, and improvement actions.
+            This model asks whether those practices are producing the workforce the business needs today, and what that means in dollars.
+          </p>
+          <div class="pillRow">
+            <span class="pill">Time-aware panel modeling</span>
+            <span class="pill">Effective-dated joins</span>
+            <span class="pill">Stay model → attrition risk</span>
+            <span class="pill">BU-level revenue modeling</span>
+            <span class="pill">Model-based what-if impacts</span>
+          </div>
+
+          <div class="section">
+            <h3>Decision support focus</h3>
+            <ul class="list">
+              <li>Where is revenue exposed due to workforce instability?</li>
+              <li>Which operational levers move next-period revenue most?</li>
+              <li>How do changes in staffing dynamics translate into future outcomes?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Core outputs</h2>
+          <div class="metricBox">
+            <b>Attrition risk</b>
+            <div style="color:var(--muted);">Employee-month risk scores using a stay probability model</div>
+          </div>
+          <div class="metricBox">
+            <b>Revenue forecast</b>
+            <div style="color:var(--muted);">Next-period BU revenue prediction from aggregated workforce features</div>
+          </div>
+          <div class="metricBox">
+            <b>KPI what-if impacts</b>
+            <div style="color:var(--muted);">Dollar deltas from controlled KPI changes using the trained revenue model</div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="card section" id="run">
-      <h2>How to publish this site</h2>
-      <ol class="list">
-        <li>Create a file named <b>index.html</b> in the repo root (or in <b>/docs</b>).</li>
-        <li>Go to <b>Settings</b> → <b>Pages</b>.</li>
-        <li>Set <b>Source</b> to the branch you want (usually <b>main</b>).</li>
-        <li>Select the folder: <b>/(root)</b> or <b>/docs</b>.</li>
-        <li>Save. GitHub will provide a public Pages URL.</li>
-      </ol>
+    <div class="twoCol" id="method">
+      <div class="card">
+        <h2>Method summary</h2>
+        <ul class="list">
+          <li><b>Time-aware snapshots:</b> employee-month and BU-month panels that avoid future leakage.</li>
+          <li><b>Effective-dated joins:</b> groupwise as-of attachment of compensation and performance history.</li>
+          <li><b>Stay modeling:</b> learn P(stay) over a forward horizon; derive attrition risk as 1 − P(stay).</li>
+          <li><b>BU-level revenue model:</b> prevent duplication bias by forecasting revenue at BU-period level.</li>
+          <li><b>What-if analysis:</b> reuse revenue model to price KPI changes into next-period dollars.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Interpretation guardrails</h2>
+        <ul class="list">
+          <li>Outputs are decision support, not causal proof.</li>
+          <li>What-if impacts are model-based marginal estimates.</li>
+          <li>Short-term effects can be negative for investments with delayed payoff.</li>
+          <li>Use concentration and lift for action targeting, not accuracy alone.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card section" id="outputs">
+      <h2>Outputs and what they mean</h2>
+      <ul class="list">
+        <li><b>panel_scored.csv:</b> employee-month panel with features and risk scores.</li>
+        <li><b>panel_scores_min.csv:</b> minimal employee-month scoring output for action lists.</li>
+        <li><b>bu_period_features.csv:</b> aggregated BU-period feature set used for revenue forecasting.</li>
+        <li><b>bu_period_scored.csv:</b> BU-period revenue predictions and residuals.</li>
+        <li><b>kpi_impact_output.csv:</b> BU-period predicted revenue deltas per KPI change.</li>
+        <li><b>kpi_impact_summary.csv:</b> summary statistics (mean, p10, p50, p90) per KPI impact.</li>
+      </ul>
+    </div>
+
+    <div class="twoCol section" id="dashboard">
+      <div class="card">
+        <h2>Dashboard pages</h2>
+        <ul class="list">
+          <li><b>Executive overview:</b> predicted revenue, revenue-at-risk, expected exits, risk concentration.</li>
+          <li><b>Revenue at risk:</b> risk distribution, risk tiers, BU concentration, intervention list.</li>
+          <li><b>KPI impact:</b> ranked levers, what-if deltas in dollars, sensitivity summary.</li>
+          <li><b>Workforce shaping:</b> promotions, merit, performance patterns over time vs outcomes.</li>
+          <li><b>Scenarios:</b> combine levers to project revenue impact and tradeoffs.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Revenue-at-risk calculation</h2>
+        <p>This converts attrition risk into expected revenue exposure at the BU-period level.</p>
+        <div class="code">
+import pandas as pd<br><br>
+panel = pd.read_csv("panel_scored.csv")<br>
+bu = pd.read_csv("bu_period_scored.csv")<br><br>
+df = panel.merge(<br>
+&nbsp;&nbsp;bu[["business_unit","period","predicted_revenue_next_period","headcount"]],<br>
+&nbsp;&nbsp;on=["business_unit","period"], how="left"<br>
+)<br><br>
+df["revenue_exposure"] = df["predicted_revenue_next_period"] / df["headcount"]<br>
+df["revenue_risk"] = df["attrition_risk"] * df["revenue_exposure"]<br><br>
+print("Total Revenue at Risk:", df["revenue_risk"].sum())<br>
+        </div>
+      </div>
     </div>
 
     <div class="footer">
