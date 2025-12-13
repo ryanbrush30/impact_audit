@@ -1,158 +1,223 @@
-<b> Project: Multi-Year Workforce Performance and Pay Equity Modeling vs Business Outcomes Goal</b>
+<b>Project: Multi-Year Workforce Performance and Pay Equity Modeling vs Business Outcomes</b><br><br>
 
+<b>Goal</b><br>
 This project builds an integrated, multi-year workforce analytics and business impact modeling pipeline that connects:
-Employee lifecycle data (hire, termination, tenure)
-Effective-dated compensation and performance history
-Business unit KPIs (revenue, productivity, vacancies, quality)
+<ul>
+  <li>Employee lifecycle data (hire, termination, tenure)</li>
+  <li>Effective-dated compensation and performance history</li>
+  <li>Business unit KPIs (revenue, productivity, vacancies, quality)</li>
+</ul>
 
 <b>Predictive modeling for:</b>
-Attrition risk (via a stay probability model)
-Next-period revenue forecasting
-KPI “what-if” impact analysis
+<ul>
+  <li>Attrition risk (via a stay probability model)</li>
+  <li>Next-period revenue forecasting</li>
+  <li>KPI “what-if” impact analysis</li>
+</ul>
 
-The goal is not just prediction, but decision support:
-understanding which workforce and operational levers matter most and how changes in those levers are expected to impact business outcomes.
-
+The goal is not just prediction, but decision support: understanding which workforce and operational levers matter most and how changes in those levers are expected to impact business outcomes.
+<br><br>
 <b>Key Design Principles</b>
-1. Time-aware panel modeling.  All models are trained on employee-month or BU-month snapshots, strictly avoiding future leakage.
+<ol>
+  <li>
+    <b>Time-aware panel modeling.</b><br>
+    All models are trained on employee-month or business unit-month snapshots, strictly avoiding future data leakage.
+  </li>
 
-2. Effective-dated joins.  Compensation and performance history are attached using robust groupwise as-of joins, not naive merges.
+  <li>
+    <b>Effective-dated joins.</b><br>
+    Compensation and performance history are attached using robust groupwise as-of joins, not naive merges.
+  </li>
 
-3. Stay modeling (not naive attrition classification) The model predicts probability of staying employed over a forward horizon. Attrition risk is derived as 1 − P(stay) to avoid inverted signal issues common in HR panel data.
+  <li>
+    <b>Stay modeling (not naive attrition classification).</b><br>
+    The model predicts the probability of staying employed over a forward horizon. Attrition risk is derived as:
+    <br>
+    <code>attrition_risk = 1 − P(stay)</code><br>
+    This avoids inverted signal issues common in HR panel data.
+  </li>
 
-4. Business-level modeling.  Revenue forecasting is performed at the business unit–period level, not the employee level, preventing duplication bias.
+  <li>
+    <b>Business-level modeling.</b><br>
+    Revenue forecasting is performed at the business unit–period level, not the employee level, preventing duplication bias.
+  </li>
 
-5. Model-based KPI impact analysi.  Revenue models are reused to generate controlled “what-if” scenarios for KPI changes.
-
-<b>Data Inputs</b>
+  <li>
+    <b>Model-based KPI impact analysis.</b><br>
+    Revenue models are reused to generate controlled “what-if” scenarios for KPI changes.
+  </li>
+</ol>
+<br>
+<b>Data Inputs</b><br>
 Expected CSV files in the project root:
-
-<b>employees.csv</b>
+<br><br>
+<b>employees.csv</b><br>
 Required columns:
-- employee_id
-- hire_date
-- term_date (nullable)
-- business_unit_id
+<ul>
+  <li>employee_id</li>
+  <li>hire_date</li>
+  <li>term_date (nullable)</li>
+  <li>business_unit_id</li>
+</ul>
 Optional: job family, location, role attributes
-
-<b>comp_history.csv</b>
+<br><br>
+<b>comp_history.csv</b><br>
 Effective-dated compensation records:
-employee_id
-effective_date
+<ul>
+  <li>employee_id</li>
+  <li>effective_date</li>
+</ul>
 Examples:
-- base_pay
-- bonus_target
-- compa_ratio
-- merit_pct
-- promo_flag
-
-<b>perf_history.csv</b>
-Performance reviews:
-- employee_id
-- review_date
+<ul>
+  <li>base_pay</li>
+  <li>bonus_target</li>
+  <li>compa_ratio</li>
+  <li>merit_pct</li>
+  <li>promo_flag</li>
+</ul>
+<br>
+<b>perf_history.csv</b><br>
+Performance review history:
+<ul>
+  <li>employee_id</li>
+  <li>review_date</li>
+</ul>
 Examples:
-rating
-calibrated_rating
-goal_attainment_pct
-
-<b>business_kpi.csv</b>
+<ul>
+  <li>rating</li>
+  <li>calibrated_rating</li>
+  <li>goal_attainment_pct</li>
+</ul>
+<br>
+<b>business_kpi.csv</b><br>
 Business unit KPIs by period:
-business_unit_id
-period_start
-
+<ul>
+  <li>business_unit_id</li>
+  <li>period_start</li>
+</ul>
 Examples:
-revenue
-operating_margin_pct
-productivity_index
-avg_vacancy_days
-quality_incidents
-headcount_proxy
-
+<ul>
+  <li>revenue</li>
+  <li>operating_margin_pct</li>
+  <li>productivity_index</li>
+  <li>avg_vacancy_days</li>
+  <li>quality_incidents</li>
+  <li>headcount_proxy</li>
+</ul>
+<br><br>
 <b>Pipeline Steps</b>
-1. Employee–Month Panel Construction
-Builds a complete monthly panel from hire date through termination.
-Drops termination month and later rows to ensure “employed at snapshot” integrity.
-Computes tenure in months.
+<ol>
+  <li>
+    <b>Employee-Month Panel Construction</b><br>
+    Builds a complete monthly panel from hire date through termination.<br>
+    Drops termination month and later rows to ensure “employed at snapshot” integrity.<br>
+    Computes tenure in months.
+  </li>
 
-2. Effective-Dated Feature Attachment
-Compensation and performance histories are attached using groupwise merge_asof logic.
-Ensures each snapshot reflects the most recent known state at that time.
+  <li>
+    <b>Effective-Dated Feature Attachment</b><br>
+    Compensation and performance histories are attached using groupwise <code>merge_asof</code> logic.<br>
+    Each snapshot reflects the most recent known state at that time.
+  </li>
 
-3. Feature Engineering
-Lagged features (1, 3, 6 months)
-Rolling aggregates (mean, std)
-History depth filtering to ensure sufficient signal
+  <li>
+    <b>Feature Engineering</b><br>
+    <ul>
+      <li>Lagged features (1, 3, 6 months)</li>
+      <li>Rolling aggregates (mean, standard deviation)</li>
+      <li>History depth filtering to ensure sufficient signal</li>
+    </ul>
+  </li>
 
-4. Stay / Attrition Modeling
-Target: stay_in_horizon (default: 3 months)
-Model: Logistic Regression with:
-Balanced class weights
-Scaling
-Sparse one-hot encoding
+  <li>
+    <b>Stay / Attrition Modeling</b><br>
+    Target: <code>stay_in_horizon</code> (default: 3 months)<br>
+    Model: Logistic Regression with:
+    <ul>
+      <li>Balanced class weights</li>
+      <li>Feature scaling</li>
+      <li>Sparse one-hot encoding</li>
+    </ul>
+    Probability direction is automatically corrected if AUC indicates inversion.
+  </li>
 
-Probability direction is automatically corrected if AUC indicates inversion.
-Attrition risk defined as:
-attrition_risk = 1 − stay_probability
+  <li>
+    <b>Revenue Forecasting (Business Unit–Period)</b><br>
+    Aggregates employee features to the business unit–month level.<br>
+    Predicts next-period revenue using Ridge regression.<br>
+    Prevents leakage by excluding contemporaneous revenue from features.
+  </li>
 
-5. Revenue Forecasting (BU-Period)
-Aggregates employee features to the business unit–month level.
-Predicts next-period revenue using a Ridge regression model.
-Prevents leakage by excluding contemporaneous revenue from features.
+  <li>
+    <b>KPI Impact (“What-If”) Analysis</b><br>
+    Applies controlled deltas to selected KPIs, for example:
+    <ul>
+      <li>Reduce vacancy days by 5</li>
+      <li>Increase productivity index by 0.05</li>
+      <li>Add 2 headcount</li>
+    </ul>
+    Measures the change in predicted next-period revenue.
+  </li>
+</ol>
+<br>
+<b>Outputs</b><br><br>
 
-6. KPI Impact (“What-If”) Analysis
-Applies controlled deltas to selected KPIs (for example):
-Reduce vacancy days by 5
-Increase productivity index by 0.05
-Add 2 headcount
-Measures change in predicted next-period revenue.
-Outputs both detailed and summarized impact tables.
+<b>Employee-Level</b><br>
+<b>panel_scored.csv</b><br>
+Full employee-month dataset with predictions and features.<br><br>
 
-<b>Outputs</b>
-Employee-Level
-panel_scored.csv
-Full employee-month dataset with predictions and features.
-panel_scores_min.csv
+<b>panel_scores_min.csv</b><br>
 Minimal scoring output:
-employee_id
-period_start
-business_unit_id
-stay_proba
-attrition_risk
-Business Unit–Level
-bu_period_features.csv
+<ul>
+  <li>employee_id</li>
+  <li>period_start</li>
+  <li>business_unit_id</li>
+  <li>stay_proba</li>
+  <li>attrition_risk</li>
+</ul>
 
-<b>Aggregated BU-period feature set.</b>
-bu_period_scored.csv
-BU-period revenue predictions.
+<b>Business Unit–Level</b><br>
+<b>bu_period_features.csv</b><br>
+Aggregated BU-period feature set.<br><br>
 
-<b>KPI Impact</b>
-kpi_impact_output.csv
-BU-period predicted revenue deltas per KPI change.
-kpi_impact_summary.csv
+<b>bu_period_scored.csv</b><br>
+BU-period revenue predictions.<br><br>
+
+<b>KPI Impact</b><br>
+<b>kpi_impact_output.csv</b><br>
+BU-period predicted revenue deltas per KPI change.<br><br>
+
+<b>kpi_impact_summary.csv</b><br>
 Summary statistics (mean, p10, p50, p90 impact per KPI).
-
+<br><br>
 <b>Interpreting Results</b>
-Attrition AUC ~0.60
-This is realistic for workforce data and represents meaningful ranking signal.
-PR-AUC should be compared to base rate
-Small absolute values are expected with rare attrition events.
-KPI impact is model-based, not causal
-Results should be interpreted as:
-“Holding other factors constant, the model predicts that improving KPI X by Y is associated with a change of Z in next-period revenue.”
-
-<b>Configuration</b>
-Key parameters live in the Config dataclass:
-Prediction horizon
-Train/test split window
-Minimum history length
-Top-K risk flagging rate
-KPI impact step sizes
-
-<b>Intended Use</b>
+<ul>
+  <li><b>Attrition AUC ~0.60</b><br>
+      Realistic for workforce data and represents meaningful ranking signal.</li>
+  <li><b>PR-AUC should be compared to base rate</b><br>
+      Small absolute values are expected with rare attrition events.</li>
+  <li><b>KPI impact is model-based, not causal</b><br>
+      Results should be interpreted as:<br>
+      “Holding other factors constant, the model predicts that improving KPI X by Y is associated with a change of Z in next-period revenue.”</li>
+</ul>
+<br>
+<b>Configuration</b><br>
+Key parameters live in the <code>Config</code> dataclass:
+<ul>
+  <li>Prediction horizon</li>
+  <li>Train/test split window</li>
+  <li>Minimum history length</li>
+  <li>Top-K risk flagging rate</li>
+  <li>KPI impact step sizes</li>
+</ul>
+<br>
+<b>Intended Use</b><br>
 This project is designed for:
-Workforce planning and scenario modeling
-HR–Finance–Operations alignment
-Executive decision support
-Demonstrating advanced people analytics capability
+<ul>
+  <li>Workforce planning and scenario modeling</li>
+  <li>HR, Finance, and Operations alignment</li>
+  <li>Executive decision support</li>
+  <li>Demonstrating advanced people analytics capability</li>
+</ul>
 
 It is not intended as a black-box churn model, but as a transparent, extensible analytics framework.
