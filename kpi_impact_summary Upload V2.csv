@@ -1,0 +1,22 @@
+kpi,Number of BU-period observations where this impact was evaluated,The average dollar change in next-period revenue if the KPI moves by the predefined “what-if” amount.,10th percentile of that revenue impact across BU-periods.,50th percentile of that revenue impact across BU-periods.,90th percentile of that revenue impact across BU-periods.,,Output Notes
+avg_vacancy_days,2130," $9,536.26 "," $9,672.50 "," $9,672.50 "," $9,672.50 ",,"Reducing average vacancy days by the scenario amount (for example, filling roles ~5 days faster) is associated with an average increase of about $5.1k in next-period revenue per business unit."
+quality_incidents,2130," $3,201.08 "," $3,246.81 "," $3,246.81 "," $3,246.81 ",,Reduccing quality incidents by the scenario amount is associated with an average increase of about $1.8k in next-period revenue per business unit.
+headcount,2130, $652.38 , $652.38 , $652.38 , $652.38 ,,"Increasing operating margin by the scenario amount (for example, +1 percentage point) is associated with an average decrease of about $863 in next-period revenue per business unit."
+operating_margin_pct,2130, $(506.95), $(514.19), $(514.19), $(514.19),,"The productivity index is behaving as a signal rather than a driver. In our historical data, productivity increases often occurred during periods of cost control or staffing pressure, which tended to precede softer revenue. This reflects timing and operating context, not poor performance."
+productivity_index,2130," $(8,901.05)"," $(9,028.21)"," $(9,028.21)"," $(9,028.21)",,"Increasing headcount by the scenario amount (for example, adding ~2 FTEs) is associated with an average decrease of about $10.4k in next-period revenue per business unit."
+TOTAL_NET,2130," $3,981.72 "," $4,029.28 "," $4,029.28 "," $4,029.28 ",,
+TOTAL_ABS,2130," $22,797.72 "," $23,114.09 "," $23,114.09 "," $23,114.09 ",,
+TOTAL_NET_WEIGHTED_BY_BASELINE,2130," $3,982.31 "," $4,029.28 "," $4,029.28 "," $4,029.28 ",,
+TOTAL_ABS_WEIGHTED_BY_BASELINE,2130," $22,801.70 "," $23,114.09 "," $23,114.09 "," $23,114.09 ",,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+Changes to KPI's Impacting ,,,,,,,
+kpi_steps={,,,,,,,
+"    ""avg_vacancy_days"": -7.0,",,,,,,,
+"    ""productivity_index"": +0.07,",,,,,,,
+"    ""operating_margin_pct"": +0.01,",,,,,,,
+"    ""quality_incidents"": -2.0,",,,,,,,
+"    ""headcount"": +5.0,",,,,,,,
+"},",,,,,,,
+"bucket_weights={0: 0.0, 1: 0.25, 2: 0.60, 3: 1.0},",,,,,,,
