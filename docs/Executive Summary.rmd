@@ -42,7 +42,7 @@ The model makes those timing effects visible.
 
 This reframes performance management as a strategic governance question:
 
-> Are our historical people decisions producing the business results we want today, and the organization we need tomorrow?
+Are our historical people decisions producing the business results we want today, and the organization we need tomorrow?
 
 By linking workforce decisions directly to business outcomes, leaders can evaluate:
 
@@ -62,3 +62,4 @@ It is a **forward-looking decision framework** designed to:
 - Align people strategy with long-term business objectives  
 
 In short, Impact Audit provides leaders with an evidence-based view of how yesterday’s decisions are shaping today’s results and tomorrow’s readiness.
+
