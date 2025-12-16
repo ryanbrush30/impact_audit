@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Impact Audit | Workforce Practices vs Business Outcomes</title>
-  <meta name="description" content="A multi-year workforce analytics and business impact modeling pipeline connecting performance, compensation, attrition risk, KPI movement, and revenue outcomes." />
+  <title>Impact Audit | Production Grade Model for Attrition, KPI and Revenue Impacts</title>
+  <meta name="description" content="A production-grade, time-aware attrition risk pipeline that builds a full-history employee-period signals layer, scores risk reliably, and supports action targeting with coverage and join integrity checks." />
   <style>
     :root{
       --bg:#0b1020;
@@ -148,7 +148,6 @@
     .footer a{color: rgba(231,236,255,0.7)}
     .footer a:hover{color: var(--text)}
 
-    /* Use case fit table */
     .fitTable{
       margin-top:10px;
       border:1px solid var(--line);
@@ -210,33 +209,34 @@
     <div class="topbar">
       <div class="brand">
         <div class="dot"></div>
-        <div><b>Impact Audit</b></div>
+        <div><b>Impact Recov</b></div>
       </div>
       <div class="nav">
         <a href="#overview">Overview</a>
-        <a href="#method">Method</a>
+        <a href="#capabilities">Capabilities</a>
         <a href="#outputs">Outputs</a>
-        <a href="#dashboard">Dashboard</a>
+        <a href="#readiness">Strength</a>
       </div>
     </div>
 
     <div class="hero" id="overview">
-      <div class="kicker">Workforce practices vs business outcomes</div>
-      <h1>Measure how people decisions shape KPI movement and revenue over time</h1>
+      <div class="kicker">Attrition risk detection with recovery-grade signals</div>
+      <h1>Production-grade attrition risk scoring with full-history signals and join integrity checks</h1>
       <div class="subtitle">
-        A multi-year, time-aware modeling pipeline that connects employee performance and compensation practices
-        to workforce stability, KPI changes, and <b>next-period revenue</b>. Built for decision support, not vibes.
+        A time-aware modeling pipeline designed to <b>build or refresh employee-period signals</b>,
+        validate coverage, score attrition risk, and produce action-ready outputs for leaders.
+        Built for operational reliability and auditability, not one-off notebooks.
       </div>
 
       <div class="ctaRow">
-        <a class="btn primary" href="https://github.com/ryanbrush30/impact_audit" target="_blank" rel="noreferrer">
+        <a class="btn primary" href="https://github.com/ryanbrush30" target="_blank" rel="noreferrer">
           View repository <small>code + docs</small>
-        </a>
-        <a class="btn" href="#dashboard">
-          See dashboard design <small>executive pages</small>
         </a>
         <a class="btn" href="#outputs">
           Understand outputs <small>what the files mean</small>
+        </a>
+        <a class="btn" href="#readiness">
+          See strength <small>why this is production ready</small>
         </a>
       </div>
 
@@ -244,26 +244,28 @@
         <div class="card">
           <h2>What this answers</h2>
           <p>
-            Leaders make performance decisions constantly: promotions, merit, recognition, development, and improvement actions.
-            Impact Audit asks whether those practices are producing the workforce the business needs today and what that implies in dollars.
+            Impact Recov is built to answer operational questions that leaders ask every week:
+            who is at risk, where risk is concentrating, what signals are driving it, and how reliably the pipeline
+            can refresh scores without breaking on missing files or partial coverage.
           </p>
 
           <div class="pillRow">
-            <span class="pill">Time-aware panel modeling</span>
-            <span class="pill">Effective-dated joins</span>
-            <span class="pill">Stay model → attrition risk</span>
-            <span class="pill">Two-stage mechanism model</span>
-            <span class="pill">Fixed effects (BU + month)</span>
-            <span class="pill">Model-based what-if impacts</span>
+            <span class="pill">Time-aware employee-period panel</span>
+            <span class="pill">Full-history signals build</span>
+            <span class="pill">Coverage and key match checks</span>
+            <span class="pill">Operational scoring outputs</span>
+            <span class="pill">Leakage guardrails</span>
+            <span class="pill">Production-first artifact writing</span>
           </div>
 
-          <div class="section">
-            <h3>Decision support focus</h3>
+          <div class="section" id="capabilities">
+            <h3>Core capabilities</h3>
             <ul class="list">
-              <li>Where is revenue exposed due to workforce instability?</li>
-              <li>Which operational levers move next-period revenue most?</li>
-              <li>How do changes in staffing dynamics translate into future outcomes?</li>
-              <li>Are comp and performance practices aligned with KPI improvements over time?</li>
+              <li><b>Builds signals if missing:</b> automatically creates a full-history employee-period signals file when it is not found, so the pipeline runs end-to-end.</li>
+              <li><b>Coverage validation:</b> checks panel and signals date ranges, unique employee-period match rate, and non-null rates for critical fields.</li>
+              <li><b>Robust joins:</b> designed to prevent silent join failures and to surface integrity issues early (coverage, keys, missingness).</li>
+              <li><b>Action outputs:</b> produces minimal scoring tables to power action lists, dashboards, and workflow triggers.</li>
+              <li><b>Signal-rich risk:</b> supports manager and behavior signals like manager_id, overtime hours, PTO usage and availability, internal transfer flags, and job change flags.</li>
             </ul>
           </div>
         </div>
@@ -272,170 +274,161 @@
           <h2>Core outputs</h2>
 
           <div class="metricBox">
-            <b>Attrition risk</b>
+            <b>Attrition risk scores</b>
             <div style="color:var(--muted);">
-              Employee-month risk scores using a stay probability model, bucketed into time-to-exit risk.
+              Employee-period risk scores aligned to a forward-looking horizon label (stay or leave in horizon),
+              designed to support targeting and prioritization.
             </div>
           </div>
 
           <div class="metricBox">
-            <b>KPI-next predictions (Stage 1)</b>
+            <b>Signals layer (full history)</b>
             <div style="color:var(--muted);">
-              Predict next-period KPI movement from workforce and current-state features.
+              A consolidated employee-period signals dataset built from historical sources, aligned to the panel timeline.
             </div>
           </div>
 
           <div class="metricBox">
-            <b>Revenue forecast (Stage 2)</b>
+            <b>Join quality report</b>
             <div style="color:var(--muted);">
-              Predict next-period BU revenue from predicted KPI-next plus BU and time fixed effects.
+              Match rate and non-null diagnostics for key signals so you can trust scoring completeness.
             </div>
           </div>
 
           <div class="metricBox">
-            <b>KPI what-if impacts</b>
+            <b>Operational extracts</b>
             <div style="color:var(--muted);">
-              Dollar deltas from controlled KPI changes using the trained revenue model.
+              Minimal scoring output (employee, period, org unit, risk, key drivers) suitable for dashboards and interventions.
             </div>
           </div>
 
           <div class="note">
-            Recent run: revenue model R2 improved after the two-stage + fixed effects upgrade.
+            Strength focus: reliability, coverage, and repeatable end-to-end execution, including artifact creation when inputs are absent.
           </div>
         </div>
       </div>
     </div>
 
-    <div class="twoCol" id="method">
+    <div class="twoCol" id="readiness">
       <div class="card">
-        <h2>Method summary (A + B)</h2>
+        <h2>Strength and why it is production grade</h2>
         <ul class="list">
-          <li><b>Time-aware snapshots:</b> employee-month and BU-month panels that avoid future leakage.</li>
-          <li><b>Effective-dated joins:</b> groupwise as-of attachment of compensation and performance history.</li>
-          <li><b>Stay modeling:</b> learn risk signal using time-to-exit buckets; operational label is attrition within a forward horizon.</li>
-          <li><b>Stage 1 mechanism model:</b> workforce and current KPIs predict <b>next-period KPIs</b>.</li>
-          <li><b>Stage 2 revenue model:</b> predicted KPI-next plus fixed effects predict <b>next-period revenue</b>.</li>
-          <li><b>Fixed effects:</b> BU and month effects reduce “some units are always better” bias.</li>
-          <li><b>What-if analysis:</b> reuse the revenue model to price KPI changes into next-period dollars.</li>
+          <li><b>End-to-end survivability:</b> missing signals files do not stop execution. The pipeline can build what it needs.</li>
+          <li><b>Data integrity checks:</b> explicit match-rate and non-null rate reporting prevents silent failure modes.</li>
+          <li><b>Time alignment:</b> employee-period features and labels are designed to reduce future leakage risk.</li>
+          <li><b>Actionable outputs:</b> scoring tables are structured for operational use, not just model evaluation.</li>
+          <li><b>Extensible signals:</b> built to absorb additional features like manager turnover, pay change, compa change, promotion flags, and performance trends without redesigning the pipeline.</li>
         </ul>
+
+        <div class="note">
+          This is decision support. It is designed to rank and concentrate risk for intervention targeting.
+          Causal claims require a separate intervention design.
+        </div>
       </div>
 
       <div class="card">
-        <h2>Interpretation guardrails</h2>
-        <ul class="list">
-          <li>Outputs are decision support, not causal proof.</li>
-          <li>What-if impacts are model-based marginal estimates holding other features constant.</li>
-          <li>Some “improvements” can have short-term costs and long-term payoff.</li>
-          <li>Use lift and concentration for targeting, not accuracy alone.</li>
-          <li>If you want causal inference, you need a real intervention design (policy change, natural experiment, or matched controls).</li>
-        </ul>
+        <h2>Use case fit</h2>
 
-        <!-- Added section: Use case fit -->
-        <div class="section" id="fit">
-          <h3>Use case fit</h3>
-
-          <div class="fitTable" role="table" aria-label="Use case fit table">
-            <div class="fitRow fitHeader" role="row">
-              <div class="fitCell" role="columnheader">Use Case</div>
-              <div class="fitCell" role="columnheader">Fit</div>
-            </div>
-
-            <div class="fitRow" role="row">
-              <div class="fitCell" role="cell">Risk identification</div>
-              <div class="fitCell" role="cell"><span class="tag good">Excellent</span></div>
-            </div>
-
-            <div class="fitRow" role="row">
-              <div class="fitCell" role="cell">Revenue exposure pricing</div>
-              <div class="fitCell" role="cell"><span class="tag good">Excellent</span></div>
-            </div>
-
-            <div class="fitRow" role="row">
-              <div class="fitCell" role="cell">Operational prioritization</div>
-              <div class="fitCell" role="cell"><span class="tag good">Excellent</span></div>
-            </div>
-
-            <div class="fitRow" role="row">
-              <div class="fitCell" role="cell">Scenario comparison</div>
-              <div class="fitCell" role="cell"><span class="tag strong">Very strong</span></div>
-            </div>
-
-            <div class="fitRow" role="row">
-              <div class="fitCell" role="cell">Policy causality</div>
-              <div class="fitCell" role="cell"><span class="tag warn">Out of scope (by design)</span></div>
-            </div>
+        <div class="fitTable" role="table" aria-label="Use case fit table">
+          <div class="fitRow fitHeader" role="row">
+            <div class="fitCell" role="columnheader">Use Case</div>
+            <div class="fitCell" role="columnheader">Fit</div>
           </div>
 
-          <div class="note">
-            This project is built for decision support and prioritization. Causal claims require a separate design (pilots, quasi-experiments, or matched controls).
+          <div class="fitRow" role="row">
+            <div class="fitCell" role="cell">Risk identification</div>
+            <div class="fitCell" role="cell"><span class="tag good">Excellent</span></div>
+          </div>
+
+          <div class="fitRow" role="row">
+            <div class="fitCell" role="cell">Operational targeting and prioritization</div>
+            <div class="fitCell" role="cell"><span class="tag good">Excellent</span></div>
+          </div>
+
+          <div class="fitRow" role="row">
+            <div class="fitCell" role="cell">Workforce stability monitoring</div>
+            <div class="fitCell" role="cell"><span class="tag strong">Very strong</span></div>
+          </div>
+
+          <div class="fitRow" role="row">
+            <div class="fitCell" role="cell">Automated recurring scoring</div>
+            <div class="fitCell" role="cell"><span class="tag strong">Very strong</span></div>
+          </div>
+
+          <div class="fitRow" role="row">
+            <div class="fitCell" role="cell">Policy causality</div>
+            <div class="fitCell" role="cell"><span class="tag warn">Out of scope (by design)</span></div>
           </div>
         </div>
-        <!-- End added section -->
+
+        <div class="note">
+          The model is strongest when used to focus leader attention on the highest-risk pockets and the signals driving them.
+        </div>
       </div>
     </div>
 
     <div class="card section" id="outputs">
       <h2>Outputs and what they mean</h2>
       <ul class="list">
-        <li><b>panel_scored.csv:</b> employee-month panel with features and attrition risk scores.</li>
-        <li><b>panel_scores_min.csv:</b> minimal scoring output for action lists (employee, period, BU, risk).</li>
-        <li><b>bu_period_features.csv:</b> aggregated BU-period feature set used for KPI and revenue modeling.</li>
-        <li><b>bu_period_kpi_scored.csv:</b> Stage 1 outputs including <b>predicted next-period KPIs</b>.</li>
-        <li><b>bu_period_scored.csv:</b> Stage 2 outputs including predicted next-period revenue.</li>
-        <li><b>kpi_impact_output.csv:</b> BU-period predicted revenue deltas per KPI change.</li>
-        <li><b>kpi_impact_summary.csv:</b> summary statistics (mean, p10, p50, p90) per KPI impact, plus totals rows (net and absolute).</li>
+        <li><b>artifacts/employee_period_panel.csv:</b> employee-period panel used for training and scoring (time-aware).</li>
+        <li><b>data/employee_period_signals_full.csv:</b> full-history signals layer aligned to the panel timeline.</li>
+        <li><b>artifacts/panel_scored.csv:</b> panel with features plus risk scores and any diagnostics needed for review.</li>
+        <li><b>artifacts/panel_scores_min.csv:</b> minimal scoring output for action lists and dashboards.</li>
+        <li><b>artifacts/join_quality_report.csv:</b> match rate and non-null diagnostics for key signal fields (recommended).</li>
       </ul>
+
+      <div class="note">
+        Recommendation: keep the join quality report as a first-class artifact so you can show reliability to leaders and reviewers.
+      </div>
     </div>
 
-    <div class="twoCol section" id="dashboard">
+    <div class="twoCol section" id="example">
       <div class="card">
-        <h2>Dashboard pages</h2>
-        <ul class="list">
-          <li><b>Executive overview:</b> predicted revenue, revenue-at-risk, expected exits, risk concentration.</li>
-          <li><b>Revenue at risk:</b> risk distribution, risk tiers, BU concentration, intervention list.</li>
-          <li><b>KPI impact:</b> ranked levers, what-if deltas in dollars, sensitivity summary, totals.</li>
-          <li><b>Workforce shaping:</b> promotions, merit, performance patterns over time vs KPI movement and revenue.</li>
-          <li><b>Scenarios:</b> combine levers to project revenue impact and tradeoffs.</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h2>Revenue-at-risk calculation</h2>
+        <h2>Example: coverage and join integrity checks</h2>
         <p>
-          Converts attrition risk into expected revenue exposure at the BU-period level using predicted next-period revenue.
+          A simple pattern to log match rate and non-null rates that supports operational trust.
         </p>
 
         <div class="code">import pandas as pd
 
-panel = pd.read_csv("panel_scored.csv")
-bu = pd.read_csv("bu_period_scored.csv")
+panel = pd.read_csv("artifacts/employee_period_panel.csv")
+signals = pd.read_csv("data/employee_period_signals_full.csv")
 
-# Merge BU revenue and headcount onto employees
-df = panel.merge(
-    bu[["business_unit_id", "period_start", "pred_revenue_next", "headcount"]],
-    on=["business_unit_id", "period_start"],
-    how="left"
-)
+# Match rate on unique employee-period keys
+panel_keys = panel[["employee_id", "period_start"]].drop_duplicates()
+sig_keys = signals[["employee_id", "period_start"]].drop_duplicates()
+match = panel_keys.merge(sig_keys, on=["employee_id", "period_start"], how="left", indicator=True)
+match_rate = (match["_merge"] == "both").mean()
 
-# Per-employee revenue exposure (simple approximation)
-df["revenue_exposure"] = df["pred_revenue_next"] / df["headcount"]
+print(f"Signals key match rate (unique emp-period): {match_rate:.3f}")
 
-# Expected revenue at risk per employee
-df["revenue_risk"] = df["attrition_risk"] * df["revenue_exposure"]
-
-total_revenue_risk = df["revenue_risk"].sum()
-print(f"Total Revenue at Risk: ${total_revenue_risk:,.0f}")</div>
+# Non-null rate checks for critical fields after join
+joined = panel.merge(signals, on=["employee_id", "period_start"], how="left")
+for col in ["manager_id","overtime_hours","pto_hours_used","pto_hours_available","internal_transfer_flag","job_change_flag"]:
+    if col in joined.columns:
+        nn = joined[col].notna().mean()
+        print(f"{col} non-null rate: {nn:.3f}")</div>
 
         <div class="note">
-          Note: This is an exposure estimate. A more realistic version would use role-weighted exposure or replacement lag costs.
+          Strength signal: if match rate is near 1.0 and key fields remain highly non-null, scoring is operationally reliable.
         </div>
+      </div>
+
+      <div class="card">
+        <h2>How this improves on the old pattern</h2>
+        <ul class="list">
+          <li><b>Fewer pipeline breaks:</b> artifacts can be created when absent instead of failing fast on missing files.</li>
+          <li><b>More trustworthy scoring:</b> explicit coverage and join checks replace assumption-based merges.</li>
+          <li><b>More usable outputs:</b> minimal scoring tables support real workflows and dashboards.</li>
+          <li><b>More extensible:</b> the signals layer becomes the stable contract for adding new features over time.</li>
+        </ul>
       </div>
     </div>
 
     <div class="footer">
       <div>© 2025 Ryan Brush. All rights reserved.</div>
       <div>
-        <a href="https://github.com/ryanbrush30/impact_audit" target="_blank" rel="noreferrer">Repository</a>
+        <a href="https://github.com/ryanbrush30" target="_blank" rel="noreferrer">Repository</a>
         <span style="opacity:0.6;"> | </span>
         <a href="#overview">Top</a>
       </div>
@@ -443,3 +436,4 @@ print(f"Total Revenue at Risk: ${total_revenue_risk:,.0f}")</div>
   </div>
 </body>
 </html>
+
