@@ -240,38 +240,53 @@
 
   <main class="grid">
     <section class="card" id="repo">
-      <h2>Repo quick links</h2>
-      <p class="muted">
-        These links assume you are hosting the repository on GitHub. If you keep this file as <code>index.html</code> in the repo root, the relative links below will work in GitHub Pages and most static hosts.
-      </p>
+  <h2>Repo quick links</h2>
+  <p class="muted">
+    Key repository links for ImpactAudit.
+  </p>
 
-      <div class="kvs">
-        <div class="kv">
-          <div class="label">Run entrypoint</div>
-          <div class="value"><a href="./Model.py">Model.py</a></div>
-        </div>
-        <div class="kv">
-          <div class="label">Project README</div>
-          <div class="value"><a href="./README.md">README.md</a></div>
-        </div>
-        <div class="kv">
-          <div class="label">Outputs directory</div>
-          <div class="value"><a href="./">repo root</a></div>
-          <div class="muted">Outputs are generated on run and written as CSV files.</div>
-        </div>
-        <div class="kv">
-          <div class="label">Diagnostics</div>
-          <div class="value"><a href="./">debug_*.csv</a></div>
-          <div class="muted">Leakage suite logs and single-feature scans.</div>
-        </div>
+  <div class="kvs">
+    <div class="kv">
+      <div class="label">Repo root</div>
+      <div class="value">
+        <a href="https://github.com/ryanbrush30/impact_audit/tree/main" target="_blank" rel="noopener noreferrer">
+          Open repository
+        </a>
       </div>
+      <div class="muted">Browse project files, docs, and releases.</div>
+    </div>
 
-      <div class="callout">
-        <b>Optional:</b> If you want a visible GitHub URL here, replace the placeholder in the HTML:
-        <pre><code>&lt;a href="https://github.com/YOUR_ORG/impact_audit"&gt;Open repo on GitHub&lt;/a&gt;</code></pre>
+    <div class="kv">
+      <div class="label">Project README</div>
+      <div class="value">
+        <a href="https://github.com/ryanbrush30/impact_audit/blob/main/docs/README.md" target="_blank" rel="noopener noreferrer">
+          Open README.md
+        </a>
       </div>
-    </section>
+      <div class="muted">Full project overview, design, inputs, outputs, and governance.</div>
+    </div>
 
+    <div class="kv">
+      <div class="label">Outputs</div>
+      <div class="value">
+        <a href="https://github.com/ryanbrush30/impact_audit/tree/main" target="_blank" rel="noopener noreferrer">
+          Generated CSV files
+        </a>
+      </div>
+      <div class="muted">Outputs are written on execution (CSV artifacts in the repo workspace/output path).</div>
+    </div>
+
+    <div class="kv">
+      <div class="label">Diagnostics</div>
+      <div class="value">
+        <a href="https://github.com/ryanbrush30/impact_audit/tree/main" target="_blank" rel="noopener noreferrer">
+          debug_*.csv
+        </a>
+      </div>
+      <div class="muted">Leakage suite logs and single-feature scans generated on run.</div>
+    </div>
+  </div>
+</section>
     <aside class="card toc">
       <h2>Index</h2>
       <a href="#repo">Repo quick links</a>
