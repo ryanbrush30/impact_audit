@@ -49,6 +49,11 @@
     .nav{display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end}
     .nav a{font-size:14px; color:var(--muted); padding:8px 10px; border-radius:12px}
     .nav a:hover{background: rgba(231,236,255,0.06); color:var(--text)}
+    .nav a.repo{
+      border:1px solid var(--line);
+      background: rgba(231,236,255,0.06);
+      color: var(--text);
+    }
 
     .hero{padding:40px 6px 18px}
     .kicker{color:var(--muted); font-size:14px; letter-spacing:0.3px; text-transform:uppercase}
@@ -174,12 +179,14 @@
         <div class="dot" aria-hidden="true"></div>
         <b>Impact Audit</b>
       </div>
+
       <div class="nav">
         <a href="#overview">Overview</a>
         <a href="#method">Method</a>
         <a href="#outputs">Outputs</a>
         <a href="#dashboard">Dashboard</a>
         <a href="#fit">Use case fit</a>
+        <a class="repo" href="https://github.com/ryanbrush30/impact_audit" target="_blank" rel="noreferrer">GitHub ↗</a>
       </div>
     </div>
 
@@ -191,7 +198,10 @@
       </div>
 
       <div class="ctaRow">
-        <a class="btn primary" href="#outputs">View outputs <small>(files + meaning)</small></a>
+        <a class="btn primary" href="https://github.com/ryanbrush30/impact_audit" target="_blank" rel="noreferrer">
+          View on GitHub <small>(code + docs)</small>
+        </a>
+        <a class="btn" href="#outputs">View outputs <small>(files + meaning)</small></a>
         <a class="btn" href="#dashboard">Dashboard pages <small>(executive ready)</small></a>
       </div>
     </div>
@@ -354,3 +364,4 @@ print(f"Total Revenue at Risk: ${total_revenue_risk:,.0f}")</div>
   </div>
 </body>
 </html>
+
