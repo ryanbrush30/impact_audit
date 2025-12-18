@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Impact Audit | Workforce Practices vs Business Outcomes</title>
   <meta name="description" content="A multi-year workforce analytics and business impact modeling pipeline connecting performance, compensation, attrition risk, KPI movement, and revenue outcomes." />
+
   <style>
     :root{
       --bg:#0b1020;
@@ -18,16 +19,19 @@
       --radius: 16px;
       --max: 1100px;
     }
+
     *{box-sizing:border-box}
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background: radial-gradient(900px 500px at 20% 0%, rgba(122,162,255,0.18), transparent 60%),
-                  radial-gradient(900px 500px at 80% 0%, rgba(142,240,208,0.12), transparent 60%),
-                  var(--bg);
+      background:
+        radial-gradient(900px 500px at 20% 0%, rgba(122,162,255,0.18), transparent 60%),
+        radial-gradient(900px 500px at 80% 0%, rgba(142,240,208,0.12), transparent 60%),
+        var(--bg);
       color:var(--text);
       line-height:1.5;
     }
+
     a{color:var(--text); text-decoration:none}
     a:hover{color:white}
 
@@ -69,13 +73,148 @@
 
     .grid{display:grid; grid-template-columns: 1.2fr 0.8fr; gap:16px; margin-top:18px}
     .twoCol{display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-top:16px}
+
+    .card{
+      border:1px solid var(--line);
+      background: rgba(16,26,51,0.70);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:16px 16px;
+    }
+
+    .section{margin-top:16px}
+    .muted{color:var(--muted)}
+    .list{margin:10px 0 0 18px; color:var(--muted)}
+    .list b{color:var(--text)}
+
+    .note{
+      margin-top:12px;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(231,236,255,0.04);
+      color: var(--muted);
+    }
+
+    .code{
+      margin-top:10px;
+      padding:12px 12px;
+      border:1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(0,0,0,0.25);
+      color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 13px;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .fitTable{
+      margin-top:10px;
+      border:1px solid var(--line);
+      border-radius: 14px;
+      overflow:hidden;
+      background: rgba(231,236,255,0.03);
+    }
+    .fitRow{
+      display:grid;
+      grid-template-columns: 1fr 220px;
+      gap:0;
+      border-top:1px solid var(--line);
+    }
+    .fitRow:first-child{border-top:none}
+    .fitHeader{
+      background: rgba(231,236,255,0.05);
+      color: var(--text);
+      font-weight:700;
+    }
+    .fitCell{
+      padding:10px 12px;
+      color: var(--muted);
+    }
+    .fitHeader .fitCell{color: var(--text)}
+    .tag{
+      display:inline-flex;
+      padding:6px 10px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      font-size: 13px;
+      color: var(--text);
+      background: rgba(231,236,255,0.05);
+      white-space: nowrap;
+    }
+    .tag.good{border-color: rgba(142,240,208,0.35); background: rgba(142,240,208,0.10)}
+    .tag.strong{border-color: rgba(122,162,255,0.35); background: rgba(122,162,255,0.10)}
+    .tag.warn{border-color: rgba(255,203,107,0.35); background: rgba(255,203,107,0.10)}
+
+    .footer{
+      margin-top:18px;
+      padding:16px 6px 0;
+      color: var(--muted);
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      border-top: 1px solid var(--line);
+    }
+
     @media (max-width: 900px){
       .grid{grid-template-columns: 1fr;}
       .twoCol{grid-template-columns: 1fr;}
+      .fitRow{grid-template-columns: 1fr;}
       h1{font-size:32px}
-          <div class="note">
-            Recent run: revenue model R2 improved after the two-stage + fixed effects upgrade.
-          </div>
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap" id="overview">
+    <div class="topbar">
+      <div class="brand">
+        <div class="dot" aria-hidden="true"></div>
+        <b>Impact Audit</b>
+      </div>
+      <div class="nav">
+        <a href="#overview">Overview</a>
+        <a href="#method">Method</a>
+        <a href="#outputs">Outputs</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#fit">Use case fit</a>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div class="kicker">Workforce analytics pipeline</div>
+      <h1>Workforce Practices vs Business Outcomes</h1>
+      <div class="subtitle">
+        A multi-year modeling pipeline connecting performance, compensation, attrition risk, KPI movement, and revenue outcomes for prioritization and scenario planning.
+      </div>
+
+      <div class="ctaRow">
+        <a class="btn primary" href="#outputs">View outputs <small>(files + meaning)</small></a>
+        <a class="btn" href="#dashboard">Dashboard pages <small>(executive ready)</small></a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>What it does</h2>
+        <ul class="list">
+          <li><b>Scores attrition risk</b> at the employee-period level (time-aware features).</li>
+          <li><b>Aggregates</b> employee signals to BU-period features.</li>
+          <li><b>Predicts next-period KPIs</b> (Stage 1 outcomes model).</li>
+          <li><b>Predicts next-period revenue</b> from predicted KPIs plus fixed effects (Stage 2).</li>
+          <li><b>Prices what-if KPI changes</b> into next-period revenue deltas.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Status</h2>
+        <div class="note">
+          Recent run: revenue model R2 improved after the two-stage + fixed effects upgrade.
+        </div>
+        <div class="note">
+          Guardrail: outputs support prioritization and scenario comparison, not causal proof.
         </div>
       </div>
     </div>
@@ -89,7 +228,7 @@
           <li><b>Stay modeling:</b> learn risk signal using time-to-exit buckets; operational label is attrition within a forward horizon.</li>
           <li><b>Stage 1 mechanism model:</b> workforce and current KPIs predict <b>next-period KPIs</b>.</li>
           <li><b>Stage 2 revenue model:</b> predicted KPI-next plus fixed effects predict <b>next-period revenue</b>.</li>
-          <li><b>Fixed effects:</b> BU and month effects reduce “some units are always better” bias.</li>
+          <li><b>Fixed effects:</b> BU and month effects reduce baseline differences across units.</li>
           <li><b>What-if analysis:</b> reuse the revenue model to price KPI changes into next-period dollars.</li>
         </ul>
       </div>
@@ -99,12 +238,11 @@
         <ul class="list">
           <li>Outputs are decision support, not causal proof.</li>
           <li>What-if impacts are model-based marginal estimates holding other features constant.</li>
-          <li>Some “improvements” can have short-term costs and long-term payoff.</li>
+          <li>Some improvements can have short-term costs and long-term payoff.</li>
           <li>Use lift and concentration for targeting, not accuracy alone.</li>
-          <li>If you want causal inference, you need a real intervention design (policy change, natural experiment, or matched controls).</li>
+          <li>If you want causal inference, you need an intervention design (policy change, natural experiment, or matched controls).</li>
         </ul>
 
-        <!-- Added section: Use case fit -->
         <div class="section" id="fit">
           <h3>Use case fit</h3>
 
@@ -144,7 +282,6 @@
             This project is built for decision support and prioritization. Causal claims require a separate design (pilots, quasi-experiments, or matched controls).
           </div>
         </div>
-        <!-- End added section -->
       </div>
     </div>
 
@@ -175,7 +312,7 @@
 
       <div class="card">
         <h2>Revenue-at-risk calculation</h2>
-        <p>
+        <p class="muted">
           Converts attrition risk into expected revenue exposure at the BU-period level using predicted next-period revenue.
         </p>
 
