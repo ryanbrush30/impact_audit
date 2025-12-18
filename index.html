@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ImpactAudit | Workforce Risk and Business Outcomes Modeling</title>
+  <title>ImpactAudit | Repo Index</title>
   <style>
     :root{
       --bg:#0b1220;
@@ -13,6 +13,7 @@
       --accent:#7aa2ff;
       --accent2:#4ee1a0;
       --warn:#ffcc66;
+      --danger:#ff6b6b;
       --border:rgba(233,240,255,.12);
       --shadow: 0 12px 30px rgba(0,0,0,.35);
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -31,8 +32,8 @@
     a{color:var(--accent); text-decoration:none}
     a:hover{text-decoration:underline}
     header{
-      padding:48px 18px 20px;
-      max-width:1100px;
+      padding:46px 18px 18px;
+      max-width:1120px;
       margin:0 auto;
     }
     .kicker{
@@ -58,17 +59,34 @@
       letter-spacing:.2px;
     }
     .subtitle{
-      margin:0 0 18px;
+      margin:0 0 16px;
       color:var(--muted);
-      max-width:880px;
+      max-width:900px;
       font-size:16px;
     }
-    .cta-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:18px;
+    .grid{
+      max-width:1120px;
+      margin:0 auto;
+      padding:14px 18px 58px;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:14px;
     }
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr}
+      h1{font-size:32px}
+    }
+    .card{
+      background:rgba(15,26,43,.62);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    .card h2{margin:0 0 10px; font-size:18px; letter-spacing:.2px}
+    .card h3{margin:14px 0 8px; font-size:15px}
+    .muted{color:var(--muted)}
+    .btn-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
     .btn{
       display:inline-flex;
       align-items:center;
@@ -86,42 +104,7 @@
       background:linear-gradient(135deg, rgba(122,162,255,.25), rgba(78,225,160,.16));
       border-color:rgba(122,162,255,.35);
     }
-    .grid{
-      max-width:1100px;
-      margin:0 auto;
-      padding:14px 18px 60px;
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:14px;
-    }
-    @media (max-width: 980px){
-      .grid{grid-template-columns:1fr}
-      h1{font-size:32px}
-    }
-    .card{
-      background:rgba(15,26,43,.62);
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:18px;
-      box-shadow:var(--shadow);
-    }
-    .card h2{
-      margin:0 0 10px;
-      font-size:18px;
-      letter-spacing:.2px;
-    }
-    .card h3{
-      margin:14px 0 8px;
-      font-size:15px;
-      color:var(--text);
-    }
-    .muted{color:var(--muted)}
-    .pill-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-top:10px;
-    }
+    .pill-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
     .pill{
       border:1px solid var(--border);
       background:rgba(11,18,32,.35);
@@ -132,10 +115,7 @@
     }
     ul{margin:10px 0 0 18px; padding:0}
     li{margin:6px 0}
-    code, pre{
-      font-family:var(--mono);
-      font-size:12.5px;
-    }
+    pre, code{font-family:var(--mono); font-size:12.5px}
     pre{
       background:rgba(11,18,32,.45);
       border:1px solid var(--border);
@@ -144,21 +124,79 @@
       overflow:auto;
       margin:10px 0 0;
     }
-    .kv{
+    .hr{height:1px;background:var(--border); margin:14px 0}
+    .toc a{display:block; padding:6px 0; color:var(--muted)}
+    .toc a:hover{color:var(--text)}
+    .kvs{
       display:grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns:1fr 1fr;
       gap:10px;
       margin-top:12px;
     }
-    .k{
+    @media (max-width: 640px){
+      .kvs{grid-template-columns:1fr}
+    }
+    .kv{
       padding:12px;
       border-radius:14px;
       border:1px solid var(--border);
       background:rgba(11,18,32,.35);
     }
-    .k .label{color:var(--muted); font-size:12px}
-    .k .value{font-size:16px; font-weight:700; margin-top:4px}
-    .note{
+    .kv .label{color:var(--muted); font-size:12px}
+    .kv .value{font-size:16px; font-weight:800; margin-top:4px}
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      font-size:12px;
+      font-weight:700;
+      margin-left:8px;
+      color:var(--muted);
+      background:rgba(11,18,32,.35);
+    }
+    .badge.ok{border-color:rgba(78,225,160,.35); color:#b9f7db}
+    .badge.warn{border-color:rgba(255,204,102,.35); color:#ffe2a3}
+    .badge.bad{border-color:rgba(255,107,107,.35); color:#ffc1c1}
+    .score-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:10px;
+    }
+    @media (max-width: 980px){
+      .score-grid{grid-template-columns:1fr}
+    }
+    .score{
+      padding:14px;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background:rgba(11,18,32,.35);
+    }
+    .score .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .score .name{font-weight:800}
+    .score .rating{
+      font-weight:900;
+      letter-spacing:.2px;
+    }
+    .score .rating.excellent{color:#b9f7db}
+    .score .rating.strong{color:#d9e6ff}
+    .score .rating.moderate{color:#ffe2a3}
+    .score .rating.needs{color:#ffc1c1}
+    footer{
+      max-width:1120px;
+      margin:0 auto;
+      padding:0 18px 40px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .callout{
       margin-top:12px;
       padding:12px;
       border-radius:14px;
@@ -166,29 +204,7 @@
       background:rgba(255,204,102,.08);
       color:var(--text);
     }
-    .note b{color:var(--warn)}
-    footer{
-      max-width:1100px;
-      margin:0 auto;
-      padding:0 18px 40px;
-      color:var(--muted);
-      font-size:13px;
-    }
-    .two-col{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-      margin-top:12px;
-    }
-    @media (max-width: 980px){
-      .two-col{grid-template-columns:1fr}
-    }
-    .hr{
-      height:1px;background:var(--border);
-      margin:14px 0;
-    }
-    .toc a{display:block; padding:6px 0; color:var(--muted)}
-    .toc a:hover{color:var(--text)}
+    .callout b{color:var(--warn)}
   </style>
 </head>
 
@@ -196,198 +212,237 @@
   <header>
     <div class="kicker">
       <span class="dot"></span>
-      Leakage-validated, governance-ready workforce risk and business impact modeling
+      Leakage-validated workforce risk stratification and business impact modeling
     </div>
 
     <h1>ImpactAudit</h1>
     <p class="subtitle">
-      Multi-year workforce performance, pay equity, and business outcome modeling.
-      Built to support decision-making in low-attrition and regulated environments using time-aware panel data, effective-dated joins, and scenario-based KPI impact analysis.
+      Multi-year workforce performance, pay equity, and business outcomes modeling. Time-aware panel modeling, effective-dated joins, BU-period revenue forecasting, and KPI what-if impact analysis.
     </p>
 
-    <div class="cta-row">
-      <a class="btn primary" href="#quickstart">Quickstart</a>
-      <a class="btn" href="#architecture">Architecture</a>
-      <a class="btn" href="#performance">Leakage-validated performance</a>
+    <div class="btn-row">
+      <a class="btn primary" href="#repo">Repo quick links</a>
+      <a class="btn" href="#quickstart">Run</a>
+      <a class="btn" href="#model-fit">Model fit assessment</a>
+      <a class="btn" href="#performance">Performance</a>
       <a class="btn" href="#outputs">Outputs</a>
-      <a class="btn" href="#governance">Governance and responsible use</a>
+    </div>
+
+    <div class="pill-row">
+      <span class="pill">Employee-month panel</span>
+      <span class="pill">Effective-dated joins</span>
+      <span class="pill">Leakage ablation suite</span>
+      <span class="pill">Lift@Top-K prioritization</span>
+      <span class="pill">BU-period revenue model</span>
+      <span class="pill">KPI what-if scenarios</span>
     </div>
   </header>
 
   <main class="grid">
-    <section class="card" id="overview">
-      <h2>Overview</h2>
+    <section class="card" id="repo">
+      <h2>Repo quick links</h2>
       <p class="muted">
-        ImpactAudit connects employee lifecycle data, effective-dated compensation and performance history, and business unit KPIs to produce:
-        (1) forward-looking attrition risk scores for prioritization and planning, and
-        (2) next-period revenue forecasts with KPI-based what-if impact estimates.
+        These links assume you are hosting the repository on GitHub. If you keep this file as <code>index.html</code> in the repo root, the relative links below will work in GitHub Pages and most static hosts.
       </p>
 
-      <div class="pill-row">
-        <span class="pill">Time-aware employee-month panel</span>
-        <span class="pill">Effective-dated as-of joins</span>
-        <span class="pill">Leakage ablation suite</span>
-        <span class="pill">Lift@Top-K prioritization</span>
-        <span class="pill">BU-period revenue forecasting</span>
-        <span class="pill">KPI what-if scenarios</span>
+      <div class="kvs">
+        <div class="kv">
+          <div class="label">Run entrypoint</div>
+          <div class="value"><a href="./Model.py">Model.py</a></div>
+        </div>
+        <div class="kv">
+          <div class="label">Project README</div>
+          <div class="value"><a href="./README.md">README.md</a></div>
+        </div>
+        <div class="kv">
+          <div class="label">Outputs directory</div>
+          <div class="value"><a href="./">repo root</a></div>
+          <div class="muted">Outputs are generated on run and written as CSV files.</div>
+        </div>
+        <div class="kv">
+          <div class="label">Diagnostics</div>
+          <div class="value"><a href="./">debug_*.csv</a></div>
+          <div class="muted">Leakage suite logs and single-feature scans.</div>
+        </div>
       </div>
 
-      <div class="hr"></div>
-
-      <h3>What it is</h3>
-      <ul>
-        <li>A structural risk stratification tool (ranking and segmentation), not a black-box churn predictor.</li>
-        <li>Designed for rare-event attrition where lift and prioritization are more useful than raw accuracy.</li>
-        <li>Audit-friendly with built-in leakage checks, ablations, and sanity tests.</li>
-      </ul>
-
-      <h3>What it is not</h3>
-      <ul>
-        <li>Not an automated decision system for discipline, compensation, or termination actions.</li>
-        <li>Not a real-time shock detector without volatility signals (mobility, attendance strain, engagement).</li>
-      </ul>
+      <div class="callout">
+        <b>Optional:</b> If you want a visible GitHub URL here, replace the placeholder in the HTML:
+        <pre><code>&lt;a href="https://github.com/YOUR_ORG/impact_audit"&gt;Open repo on GitHub&lt;/a&gt;</code></pre>
+      </div>
     </section>
 
     <aside class="card toc">
       <h2>Index</h2>
+      <a href="#repo">Repo quick links</a>
       <a href="#quickstart">Quickstart</a>
+      <a href="#overview">Overview</a>
+      <a href="#model-fit">Model fit assessment</a>
+      <a href="#performance">Leakage-validated performance</a>
       <a href="#inputs">Data inputs</a>
-      <a href="#architecture">Pipeline and design principles</a>
-      <a href="#performance">Model performance</a>
       <a href="#outputs">Outputs</a>
-      <a href="#governance">Governance and responsible use</a>
-      <a href="#config">Configuration</a>
+      <a href="#governance">Governance</a>
       <a href="#status">Status</a>
     </aside>
 
     <section class="card" id="quickstart">
       <h2>Quickstart</h2>
-      <p class="muted">Run the project from the repo root after placing the required CSV inputs in the same directory (or in the configured data paths).</p>
+      <p class="muted">Place required CSV inputs in the configured paths (often the repo root), then run from the repo root:</p>
       <pre><code>python Model.py</code></pre>
+      <div class="callout">
+        <b>Tip:</b> If you see unusually high AUC (for example above 0.90) on rare attrition, treat it as a leakage red flag and review the leakage suite outputs.
+      </div>
+    </section>
 
-      <div class="note">
-        <b>Note:</b> This project is intentionally leakage conservative. If you see unusually high AUC (for example &gt; 0.90) on rare attrition,
-        treat it as a red flag and review the leakage suite outputs.
+    <section class="card" id="overview">
+      <h2>Overview</h2>
+      <p class="muted">
+        ImpactAudit connects employee lifecycle data, effective-dated compensation and performance history, and business unit KPIs to produce:
+        (1) forward-looking attrition risk scores for prioritization and planning, and
+        (2) next-period revenue forecasts with KPI what-if impact estimates.
+      </p>
+
+      <h3>What it is</h3>
+      <ul>
+        <li>A structural risk stratification and planning tool, focused on ranking and segmentation.</li>
+        <li>Built for rare-event attrition where lift and prioritization are more useful than raw accuracy.</li>
+        <li>Audit-friendly with leakage checks, ablations, and sanity tests.</li>
+      </ul>
+
+      <h3>What it is not</h3>
+      <ul>
+        <li>Not an automated decision system for discipline, compensation, or termination actions.</li>
+        <li>Not a real-time shock detector without volatility signals (mobility, absences, engagement).</li>
+      </ul>
+    </section>
+
+    <section class="card" id="model-fit">
+      <h2>Model fit assessment</h2>
+      <p class="muted">
+        This is the practical model-fit breakdown for the current leakage-validated version. Ratings reflect how well the system aligns to production expectations and the observed performance ceiling of the available data.
+      </p>
+
+      <div class="score-grid">
+        <div class="score">
+          <div class="top">
+            <div class="name">Data integrity and leakage control</div>
+            <div class="rating excellent">Excellent</div>
+          </div>
+          <ul>
+            <li>Time-based splits and strict past-only feature construction</li>
+            <li>Leakage ablation suite plus shuffled-label sanity checks</li>
+            <li>Explicit hard-exclusions for leaky columns</li>
+          </ul>
+        </div>
+
+        <div class="score">
+          <div class="top">
+            <div class="name">Evaluation rigor</div>
+            <div class="rating excellent">Excellent</div>
+          </div>
+          <ul>
+            <li>ROC-AUC and PR-AUC tracked, interpreted against base rate</li>
+            <li>Lift@Top-K emphasized for operational decision support</li>
+            <li>Single-feature scans and ablations for diagnosis</li>
+          </ul>
+        </div>
+
+        <div class="score">
+          <div class="top">
+            <div class="name">Feature engineering depth</div>
+            <div class="rating strong">Strong</div>
+          </div>
+          <ul>
+            <li>Lags, deltas, rolling aggregates, peer-relative context</li>
+            <li>Manager and group context supported where data is dense enough</li>
+            <li>Key limiter is signal availability, not feature plumbing</li>
+          </ul>
+        </div>
+
+        <div class="score">
+          <div class="top">
+            <div class="name">Model selection and training</div>
+            <div class="rating strong">Strong</div>
+          </div>
+          <ul>
+            <li>Regularized logistic regression favors stability and interpretability</li>
+            <li>Appropriate for rare events and governance constraints</li>
+            <li>Room for incremental tuning, not step-change gains without new signals</li>
+          </ul>
+        </div>
+
+        <div class="score">
+          <div class="top">
+            <div class="name">Business usefulness</div>
+            <div class="rating moderate">Moderate</div>
+          </div>
+          <ul>
+            <li>Reliable ranking for planning and prioritization</li>
+            <li>Not precise enough for high-confidence individual predictions</li>
+            <li>Best used for population-level interventions and scenarios</li>
+          </ul>
+        </div>
+
+        <div class="score">
+          <div class="top">
+            <div class="name">Production readiness for intended use</div>
+            <div class="rating strong">Strong</div>
+          </div>
+          <ul>
+            <li>Reproducible outputs, diagnostics, and governance artifacts</li>
+            <li>Clear ethical boundaries for use</li>
+            <li>Further gains depend on new data, not new algorithms</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <b>Bottom line:</b> You are not under-optimized. The primary constraint is data informativeness for early-warning prediction in a very low base-rate environment.
+      </div>
+    </section>
+
+    <section class="card" id="performance">
+      <h2>Leakage-validated performance</h2>
+      <p class="muted">
+        In low-attrition environments, lift and prioritization are the decision-relevant metrics. PR-AUC must be interpreted relative to the base rate.
+      </p>
+
+      <div class="kvs">
+        <div class="kv">
+          <div class="label">Attrition model (typical)</div>
+          <div class="value">AUC ~ 0.63 to 0.67 <span class="badge ok">Validated</span></div>
+          <div class="muted">Structural drivers dominate in low-event settings.</div>
+        </div>
+        <div class="kv">
+          <div class="label">Lift (typical)</div>
+          <div class="value">Lift@Top-10% ~ 2.0x to 2.5x <span class="badge ok">Operational</span></div>
+          <div class="muted">Suitable for targeting cohorts and prioritization queues.</div>
+        </div>
+        <div class="kv">
+          <div class="label">PR-AUC (typical)</div>
+          <div class="value">~ 0.015 vs ~ 0.006 base <span class="badge ok">Expected</span></div>
+          <div class="muted">Evaluate as enrichment over random selection.</div>
+        </div>
+        <div class="kv">
+          <div class="label">Revenue model (typical)</div>
+          <div class="value">R² varies with volatility <span class="badge warn">Context dependent</span></div>
+          <div class="muted">MAE often around the 300k range on test splits.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <b>Important:</b> Earlier runs with very high AUC were treated as leakage risk and rejected. This version prioritizes validity over inflated metrics.
       </div>
     </section>
 
     <section class="card" id="inputs">
-      <h2>Data Inputs</h2>
-      <p class="muted">Expected CSV files (project root). Example columns shown below are representative.</p>
-
-      <div class="two-col">
-        <div class="k">
-          <div class="label"><code>employees.csv</code></div>
-          <div class="value">Employee lifecycle and org structure</div>
-          <ul>
-            <li><code>employee_id</code>, <code>hire_date</code>, <code>term_date</code> (nullable)</li>
-            <li><code>business_unit_id</code></li>
-            <li>Optional: <code>job_family</code>, <code>level</code>, <code>location</code>, <code>manager_id</code></li>
-          </ul>
-        </div>
-
-        <div class="k">
-          <div class="label"><code>comp_history.csv</code></div>
-          <div class="value">Effective-dated compensation</div>
-          <ul>
-            <li><code>employee_id</code>, <code>effective_date</code></li>
-            <li>Examples: <code>base_pay</code>, <code>bonus_target</code>, <code>compa_ratio</code>, <code>merit_pct</code>, <code>promo_flag</code></li>
-          </ul>
-        </div>
-
-        <div class="k">
-          <div class="label"><code>perf_history.csv</code></div>
-          <div class="value">Effective-dated performance</div>
-          <ul>
-            <li><code>employee_id</code>, <code>review_date</code></li>
-            <li>Examples: <code>rating</code>, <code>calibrated_rating</code>, <code>goal_attainment_pct</code></li>
-          </ul>
-        </div>
-
-        <div class="k">
-          <div class="label"><code>business_kpi.csv</code></div>
-          <div class="value">Business unit KPIs by period</div>
-          <ul>
-            <li><code>business_unit_id</code>, <code>period_start</code></li>
-            <li>Examples: <code>revenue</code>, <code>productivity_index</code>, <code>avg_vacancy_days</code>, <code>quality_incidents</code>, <code>operating_margin_pct</code></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="card" id="architecture">
-      <h2>Pipeline and Design Principles</h2>
-
-      <h3>1) Employee-month panel construction</h3>
+      <h2>Data inputs</h2>
       <ul>
-        <li>Build monthly snapshots from hire through termination.</li>
-        <li>Drop termination month and later rows to preserve “employed at snapshot” integrity.</li>
-        <li>Compute <code>tenure_months</code>.</li>
+        <li><code>employees.csv</code>: employee_id, hire_date, term_date, business_unit_id, optional job_family, level, location, manager_id</li>
+        <li><code>comp_history.csv</code>: employee_id, effective_date, base_pay, bonus_target, compa_ratio, merit_pct, promo_flag</li>
+        <li><code>perf_history.csv</code>: employee_id, review_date, rating, calibrated_rating, goal_attainment_pct</li>
+        <li><code>business_kpi.csv</code>: business_unit_id, period_start, revenue, operating_margin_pct, productivity_index, avg_vacancy_days, quality_incidents, headcount_proxy</li>
       </ul>
-
-      <h3>2) Effective-dated feature attachment</h3>
-      <ul>
-        <li>Attach comp and performance as-of the snapshot using groupwise merge-asof logic.</li>
-        <li>Each month reflects the most recent known state at that time.</li>
-      </ul>
-
-      <h3>3) Feature engineering</h3>
-      <ul>
-        <li>Lags (1, 3, 6 months), deltas, rolling aggregates (means, std).</li>
-        <li>Peer-relative features (z-scores) within comparable groups.</li>
-        <li>Manager and group context features where available.</li>
-        <li>Strict shifting for any temporal aggregation to avoid leakage.</li>
-      </ul>
-
-      <h3>4) Attrition risk modeling</h3>
-      <ul>
-        <li>Forward horizon (default 3 months) with time-bucketed exit risk.</li>
-        <li>Regularized Logistic Regression for interpretability and governance.</li>
-        <li>Primary decision metric: Lift@Top-K risk population.</li>
-      </ul>
-
-      <h3>5) BU-period revenue forecasting</h3>
-      <ul>
-        <li>Aggregate employee-month features to business unit-month features.</li>
-        <li>Ridge regression for next-period revenue prediction.</li>
-        <li>Model reused for KPI what-if simulations.</li>
-      </ul>
-    </section>
-
-    <section class="card" id="performance">
-      <h2>Leakage-Validated Performance</h2>
-      <p class="muted">
-        In low-attrition environments, ROC-AUC can be misleading. ImpactAudit emphasizes ranking utility using Lift@Top-K
-        and evaluates PR-AUC relative to the base rate.
-      </p>
-
-      <div class="kv">
-        <div class="k">
-          <div class="label">Attrition model (typical)</div>
-          <div class="value">AUC ~ 0.63 to 0.67</div>
-          <div class="muted">Leakage conservative; structural drivers dominate.</div>
-        </div>
-        <div class="k">
-          <div class="label">Attrition lift (typical)</div>
-          <div class="value">Lift@Top-10% ~ 2.0x to 2.5x</div>
-          <div class="muted">Suitable for prioritization and planning.</div>
-        </div>
-        <div class="k">
-          <div class="label">PR-AUC (typical)</div>
-          <div class="value">~ 0.015 vs ~ 0.006 base</div>
-          <div class="muted">Interpreted relative to attrition prevalence.</div>
-        </div>
-        <div class="k">
-          <div class="label">Revenue model (typical)</div>
-          <div class="value">R² varies by volatility</div>
-          <div class="muted">MAE often in the ~300k range on test splits.</div>
-        </div>
-      </div>
-
-      <div class="note">
-        <b>Important:</b> Earlier iterations that produced very high AUC (for example ~0.94+) were treated as leakage risk and intentionally rejected.
-        The current version prioritizes validity over inflated metrics.
-      </div>
     </section>
 
     <section class="card" id="outputs">
@@ -401,14 +456,14 @@
 
       <h3>Business unit level</h3>
       <ul>
-        <li><code>bu_period_features.csv</code>: aggregated BU-period feature set</li>
-        <li><code>bu_period_scored.csv</code>: BU-period revenue predictions</li>
+        <li><code>bu_period_features.csv</code>: aggregated BU-period features</li>
+        <li><code>bu_period_scored.csv</code>: revenue predictions by BU-period</li>
       </ul>
 
       <h3>KPI impact</h3>
       <ul>
-        <li><code>kpi_impact_output.csv</code>: predicted revenue deltas per KPI change scenario</li>
-        <li><code>kpi_impact_summary.csv</code>: summary stats (mean, p10, p50, p90) per KPI</li>
+        <li><code>kpi_impact_output.csv</code>: predicted revenue deltas per KPI scenario</li>
+        <li><code>kpi_impact_summary.csv</code>: summary stats for scenario impacts</li>
       </ul>
 
       <h3>Diagnostics</h3>
@@ -419,24 +474,12 @@
     </section>
 
     <section class="card" id="governance">
-      <h2>Governance and Responsible Use</h2>
+      <h2>Governance</h2>
       <ul>
         <li>Intended for workforce planning, scenario modeling, and executive decision support.</li>
-        <li>Not intended for automated employment actions or disciplinary decisions.</li>
+        <li>Not intended for automated employment decisions or disciplinary action.</li>
         <li>KPI what-if outputs are model-based associations, not causal claims.</li>
-        <li>Always apply human review, documented policy, and appropriate access controls.</li>
-      </ul>
-    </section>
-
-    <section class="card" id="config">
-      <h2>Configuration</h2>
-      <p class="muted">Key parameters live in the project configuration (for example a Config dataclass):</p>
-      <ul>
-        <li>Prediction horizon (months)</li>
-        <li>Train/test split strategy and holdout window</li>
-        <li>Minimum history depth per employee</li>
-        <li>Top-K flagging rate (for Lift@K)</li>
-        <li>KPI what-if step sizes</li>
+        <li>Apply appropriate access controls and human review.</li>
       </ul>
     </section>
 
@@ -446,7 +489,7 @@
         <li>Architecture complete</li>
         <li>Leakage suite implemented and validated</li>
         <li>Production-appropriate for intended use (structural risk stratification and planning)</li>
-        <li>Further performance gains require new data signals (mobility, absences, engagement), not more tuning</li>
+        <li>Further gains require new data signals (mobility, absences, engagement), not more tuning</li>
       </ul>
 
       <div class="hr"></div>
@@ -460,8 +503,7 @@
 
   <footer>
     <p>
-      Tip: Keep this page in the repo root as <code>index.html</code> for simple offline documentation.
-      If you publish to GitHub Pages, it can serve as your landing page.
+      Save this file as <code>index.html</code> in the repo root. For GitHub Pages, publish from the root or /docs and keep relative links intact.
     </p>
   </footer>
 </body>
