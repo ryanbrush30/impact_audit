@@ -3,7 +3,7 @@ The project is designed not merely to predict outcomes, but to explain structura
 
 ImpactAudit is intentionally built for low-attrition, regulated, and mission-driven organizations, where exits are rare, structural, and not driven by short-term shocks.
 
-**Project Goals**
+Project Goals
 
 This project builds an end-to-end analytics pipeline that connects:
 - Employee lifecycle data (hire, termination, tenure)
@@ -18,7 +18,7 @@ Predictive modeling for:
 The goal is decision support, not black-box prediction:
 Understanding which workforce and operational levers matter most, how risk is distributed across the organization, and how targeted improvements are expected to impact business outcomes.
 
-**Core Design Principles**
+Core Design Principles
 Time-Aware Panel Modeling
 All models are trained on employee-month or business unit–month snapshots using strict time-based splits.
 No future information is used in training or feature construction.
@@ -35,7 +35,7 @@ Revenue forecasting is performed at the business unit–period level, not the em
 Model-Based KPI Impact Analysis
 Revenue models are reused to generate controlled “what-if” scenarios for KPI changes, allowing leadership to explore how operational and workforce improvements are expected to affect outcomes.
 
-**Data Inputs**
+Data Inputs
 
 Expected CSV files in the project root:
 employees.csv
