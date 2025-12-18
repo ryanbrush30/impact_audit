@@ -1,103 +1,218 @@
-<b>Project: Multi-Year Workforce Performance and Pay Equity Modeling vs Business Outcomes</b><br><br>
+ImpactAudit is an integrated, multi-year workforce analytics and business impact modeling framework that connects employee lifecycle data, compensation and performance history, and business unit KPIs to support evidence-based workforce and operational decision-making.
+The project is designed not merely to predict outcomes, but to explain structural workforce risk, prioritize proactive intervention, and quantify how changes in workforce and operational levers are expected to impact business results.
 
-<b>Goal</b><br>
-This project builds an integrated, multi-year workforce analytics and business impact modeling pipeline that connects:
+ImpactAudit is intentionally built for low-attrition, regulated, and mission-driven organizations, where exits are rare, structural, and not driven by short-term shocks.
 
-<ul> <li>Employee lifecycle data (hire, termination, tenure)</li> <li>Effective-dated compensation and performance history</li> <li>Business unit KPIs (revenue, productivity, vacancies, quality)</li> </ul>
+**Project Goals**
 
-<b>Predictive modeling for:</b>
+This project builds an end-to-end analytics pipeline that connects:
+- Employee lifecycle data (hire, termination, tenure)
+- Effective-dated compensation and performance history
+- Business unit KPIs (revenue, productivity, vacancies, quality, headcount)
 
-<ul> <li>Attrition risk (via a stay probability model)</li> <li>Next-period revenue forecasting</li> <li>KPI “what-if” impact analysis</li> </ul>
+Predictive modeling for:
+- Attrition risk (via forward-looking stay/exit modeling)
+- Next-period revenue forecasting
+- KPI-based “what-if” impact analysis
 
-The goal is not just prediction, but decision support: understanding which workforce and operational levers matter most and how changes in those levers are expected to impact business outcomes.
-<br><br>
+The goal is decision support, not black-box prediction:
+Understanding which workforce and operational levers matter most, how risk is distributed across the organization, and how targeted improvements are expected to impact business outcomes.
 
-<b>Key Design Principles</b>
+**Core Design Principles**
+Time-Aware Panel Modeling
+All models are trained on employee-month or business unit–month snapshots using strict time-based splits.
+No future information is used in training or feature construction.
 
-<ol> <li> <b>Time-aware panel modeling.</b><br> All models are trained on employee-month or business unit-month snapshots, strictly avoiding future data leakage. </li> <li> <b>Effective-dated joins.</b><br> Compensation and performance history are attached using robust groupwise as-of joins, not naive merges. </li> <li> <b>Stay modeling (not naive attrition classification).</b><br> The model predicts the probability of staying employed over a forward horizon. Attrition risk is derived as: <br> <code>attrition_risk = 1 - P(stay)</code><br> This avoids inverted signal issues common in HR panel data. </li> <li> <b>Business-level modeling.</b><br> Revenue forecasting is performed at the business unit–period level, not the employee level, preventing duplication bias. </li> <li> <b>Model-based KPI impact analysis.</b><br> Revenue models are reused to generate controlled “what-if” scenarios for KPI changes. </li> </ol> <br>
+Effective-Dated Joins
+Compensation and performance history are attached using robust groupwise merge_asof logic, ensuring each snapshot reflects only information known at that point in time.
 
-<b>Data Inputs</b><br>
+Structural Risk Modeling (Not Naive Churn Classification)
+Rather than relying on brittle binary churn labels, ImpactAudit models forward-looking attrition risk using time-bucketed horizons. Attrition risk is derived from predicted exit probabilities across future windows, enabling stable ranking in highly imbalanced datasets.
+
+Business-Level Outcome Modeling
+Revenue forecasting is performed at the business unit–period level, not the employee level, preventing duplication bias and ensuring business realism.
+
+Model-Based KPI Impact Analysis
+Revenue models are reused to generate controlled “what-if” scenarios for KPI changes, allowing leadership to explore how operational and workforce improvements are expected to affect outcomes.
+
+**Data Inputs**
+
 Expected CSV files in the project root:
-<br><br>
+employees.csv
 
-<b>employees.csv</b><br>
 Required columns:
+employee_id
+hire_date
+term_date (nullable)
+business_unit_id
 
-<ul> <li>employee_id</li> <li>hire_date</li> <li>term_date (nullable)</li> <li>business_unit_id</li> </ul> Optional: job family, location, role attributes <br><br>
+Optional:
+job_family
+level
+location
+manager_id
 
-<b>comp_history.csv</b><br>
+other role attributes
+comp_history.csv
+
 Effective-dated compensation records:
+employee_id
+effective_date
+Examples:
+base_pay
+bonus_target
+compa_ratio
+merit_pct
+promo_flag
+perf_history.csv
 
-<ul> <li>employee_id</li> <li>effective_date</li> </ul> Examples: <ul> <li>base_pay</li> <li>bonus_target</li> <li>compa_ratio</li> <li>merit_pct</li> <li>promo_flag</li> </ul> <br>
-
-<b>perf_history.csv</b><br>
 Performance review history:
+employee_id
+review_date
+Examples:
+rating
+calibrated_rating
+goal_attainment_pct
 
-<ul> <li>employee_id</li> <li>review_date</li> </ul> Examples: <ul> <li>rating</li> <li>calibrated_rating</li> <li>goal_attainment_pct</li> </ul> <br>
-
-<b>business_kpi.csv</b><br>
+business_kpi.csv
 Business unit KPIs by period:
+business_unit_id
+period_start
+Examples:
+revenue
+operating_margin_pct
+productivity_index
+avg_vacancy_days
+quality_incidents
+headcount_proxy
 
-<ul> <li>business_unit_id</li> <li>period_start</li> </ul> Examples: <ul> <li>revenue</li> <li>operating_margin_pct</li> <li>productivity_index</li> <li>avg_vacancy_days</li> <li>quality_incidents</li> <li>headcount_proxy</li> </ul> <br><br>
+Pipeline Steps
+1. Employee–Month Panel Construction
+- Builds a complete monthly panel from hire date through termination
+- Drops termination month and later rows to ensure “employed at snapshot” integrity
+- Computes tenure in months
 
-<b>Pipeline Steps</b>
+2. Effective-Dated Feature Attachment
+- Compensation and performance histories are attached via groupwise as-of joins
+- Each snapshot reflects the most recent known state at that time
 
-<ol> <li> <b>Employee-Month Panel Construction</b><br> Builds a complete monthly panel from hire date through termination.<br> Drops termination month and later rows to ensure “employed at snapshot” integrity.<br> Computes tenure in months. </li> <li> <b>Effective-Dated Feature Attachment</b><br> Compensation and performance histories are attached using groupwise <code>merge_asof</code> logic.<br> Each snapshot reflects the most recent known state at that time. </li> <li> <b>Feature Engineering</b><br> <ul> <li>Lagged features (1, 3, 6 months)</li> <li>Rolling aggregates (mean, standard deviation)</li> <li>History depth filtering to ensure sufficient signal</li> </ul> </li> <li> <b>Stay / Attrition Modeling</b><br> Target: <code>stay_in_horizon</code> (default: 3 months)<br> Model: Logistic Regression with: <ul> <li>Balanced class weights</li> <li>Feature scaling</li> <li>Sparse one-hot encoding</li> </ul> Probability direction is automatically corrected if AUC indicates inversion. </li> <li> <b>Revenue Forecasting (Business Unit–Period)</b><br> Aggregates employee features to the business unit–month level.<br> Predicts next-period revenue using Ridge regression.<br> Prevents leakage by excluding contemporaneous revenue from features. </li> <li> <b>KPI Impact (“What-If”) Analysis</b><br> Applies controlled deltas to selected KPIs, for example: <ul> <li>Reduce vacancy days by 5</li> <li>Increase productivity index by 0.05</li> <li>Add 2 headcount</li> </ul> Measures the change in predicted next-period revenue. </li> </ol> <br>
+3. Feature Engineering
+- Lagged features (1, 3, 6 months)
+- Rolling aggregates (means, standard deviations)
+- Peer-relative z-scores
+- Manager and organizational context features
+- History-depth filtering to ensure sufficient signal
+- All engineered features are strictly shifted to avoid contemporaneous leakage.
 
-<b>Model Performance (Observed Run Output)</b><br><br>
+4. Attrition Risk Modeling
+Target: forward attrition within a configurable horizon (default: 3 months)
+Model: regularized Logistic Regression with:
+- Feature scaling
+- Sparse one-hot encoding
+- Class imbalance handling
+- Performance is evaluated using:
+- ROC-AUC
+- PR-AUC (interpreted relative to base rate)
+- Lift@Top-K (primary decision metric)
+- Extensive leakage diagnostics are included:
+- Feature ablation (all vs no-change vs static)
+- Single-feature scans
+- Shuffled-label sanity checks
 
-<b>Attrition Risk Model (3-month horizon)</b><br>
+5. Revenue Forecasting (Business Unit–Period)
+- Aggregates employee features to the business unit–month level
+- Predicts next-period revenue using Ridge regressio
+- Excludes contemporaneous revenue to prevent leakage
 
-<ul> <li>Test split start date: 2025-05-01</li> <li>Positive rate (attrition in horizon): 2.04%</li> <li>ROC-AUC: 0.941 (will continue to evaluate as .941 signals a leak)</li> <li>PR-AUC: 0.244</li> <li>Lift @ Top 10% risk: 9.17x</li> </ul>
+6. KPI Impact (“What-If”) Analysis
+- Applies controlled deltas to selected KPIs, for example:
+- Reduce vacancy days by 5
+- Increase productivity index by 0.05
+- Add 2 headcount
+- Measures the change in predicted next-period revenue
+- Outputs are explicitly model-based associations, not causal claims
 
-At a Top-10% risk threshold (stay probability <= 0.60), the model captures approximately 92% of attrition events while flagging 10% of the population, providing strong prioritization power for targeted intervention in a highly imbalanced setting.
-<br><br>
+Model Performance (Leakage-Validated)
+Attrition Risk Model (3-Month Horizon)
 
-<b>Revenue Forecast Model (Business Unit–Period)</b><br>
+Typical observed performance in low-attrition environments:
+- ROC-AUC: ~0.63–0.67
+- PR-AUC: ~0.015 (vs ~0.006 base rate)
+- Lift @ Top 10% risk: ~2.0–2.5x
+These results indicate moderate but reliable ranking power, appropriate for population-level prioritization and planning in highly imbalanced settings.
 
-<ul> <li>Test split start date: 2025-04-01</li> <li>Mean Absolute Error: 324,789</li> <li>R²: 0.511</li> </ul>
+High ROC-AUC values observed in earlier iterations were identified as leakage and intentionally rejected.
+- Revenue Forecast Model (Business Unit–Period)
+- Mean Absolute Error: ~300k–325k
+- R²: ~0.5–0.8 depending on data density and volatility
+- Revenue forecasts are trained strictly on prior-period signals and reused downstream for KPI impact analysis.
 
-Revenue forecasts are trained strictly on prior-period workforce and KPI signals, and reused downstream to estimate controlled KPI-driven revenue deltas.
-<br><br>
+Outputs
+Employee-Level
 
-<b>Outputs</b><br><br>
+panel_scored.csv
+Full employee-month dataset with features and predictions
 
-<b>Employee-Level</b><br>
-<b>panel_scored.csv</b><br>
-Full employee-month dataset with predictions and features.<br><br>
-
-<b>panel_scores_min.csv</b><br>
+panel_scores_min.csv
 Minimal scoring output:
+employee_id
+period_start
+business_unit_id
+attrition_risk
+exit_bucket
 
-<ul> <li>employee_id</li> <li>period_start</li> <li>business_unit_id</li> <li>stay_proba</li> <li>attrition_risk</li> </ul>
+Business Unit–Level
+bu_period_features.csv
+Aggregated BU-period feature set
+bu_period_scored.csv
+BU-period revenue predictions
 
-<b>Business Unit–Level</b><br>
-<b>bu_period_features.csv</b><br>
-Aggregated BU-period feature set.<br><br>
+KPI Impact
+kpi_impact_output.csv
+BU-period predicted revenue deltas per KPI change
+kpi_impact_summary.csv
+Summary statistics (mean, p10, p50, p90 impact per KPI)
 
-<b>bu_period_scored.csv</b><br>
-BU-period revenue predictions.<br><br>
+Interpreting Results
+High lift matters more than raw accuracy in rare-event attrition
+PR-AUC must always be evaluated relative to base rate
+Attrition risk scores are ranking tools, not certainty estimates
+KPI impact outputs are scenario-based, not causal conclusions
 
-<b>KPI Impact</b><br>
-<b>kpi_impact_output.csv</b><br>
-BU-period predicted revenue deltas per KPI change.<br><br>
+Results should be interpreted as:
 
-<b>kpi_impact_summary.csv</b><br>
-Summary statistics (mean, p10, p50, p90 impact per KPI).
-<br><br>
+“Holding other modeled factors constant, the model estimates that improving KPI X by Y is associated with a change of Z in next-period revenue.”
 
-<b>Interpreting Results</b>
+Ethical & Responsible Use
 
-<ul> <li><b>High ROC-AUC with low base rate is expected</b><br> Attrition is rare; ranking power and lift are more decision-relevant than raw accuracy.</li> <li><b>PR-AUC must be evaluated against the 2% base rate</b><br> A PR-AUC of 0.244 represents strong enrichment over random selection.</li> <li><b>KPI impact outputs are model-based, not causal</b><br> Results should be interpreted as:<br> “Holding other factors constant, the model predicts that improving KPI X by Y is associated with a change of Z in next-period revenue.”</li> </ul> <br>
+ImpactAudit is intended for:
+- Workforce planning
+- Scenario modeling
+- HR, Finance, and Operations alignment
+- Executive decision support
 
-<b>Configuration</b><br>
-Key parameters live in the <code>Config</code> dataclass:
+It is not intended for:
+- Automated employment decisions
+- Disciplinary action
+- Compensation decisions in isolation
+- Human judgment is always required.
 
-<ul> <li>Prediction horizon</li> <li>Train/test split window</li> <li>Minimum history length</li> <li>Top-K risk flagging rate</li> <li>KPI impact step sizes</li> </ul> <br>
+Configuration
+Key parameters are centralized in the Config dataclass:
+- Prediction horizon
+- Train/test split window
+- Minimum history length
+- Top-K risk flagging rate
+- KPI impact step sizes
 
-<b>Intended Use</b><br>
-This project is designed for:
+Project Status
+✔ Architecture complete
+✔ Leakage validated
+✔ Governance-ready
+✔ Production-appropriate for intended use
 
-<ul> <li>Workforce planning and scenario modeling</li> <li>HR, Finance, and Operations alignment</li> <li>Executive decision support</li> <li>Demonstrating advanced people analytics capability</li> </ul>
+Further performance gains would require new data, not additional tuning.
 
-It is not intended as a black-box churn model, but as a transparent, extensible analytics framework.
+Author
+Developed by Ryan Brush
+Enterprise Data, People Analytics, and AI Modeling
