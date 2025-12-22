@@ -12,7 +12,7 @@ ImpactAudit is explicitly designed for:
 - Governance, audit, and model review
 - Scenario and sensitivity analysis
 
-## It is not designed for automation, employee-level decisioning, or opaque black-box prediction.  IT IS NOT ALLOWED OR APPROVED FOR USE WITHOUT HUMAN INTERVENTION AND OVERSIGHT OF THE ENTITY USING THE MODEL.  LIABILITY RESTS WITH THE END USER IN ALL SCENARIOS AND OUTCOMES.  
+## It is not designed for automation or opaque black-box prediction.  IT IS NOT ALLOWED OR APPROVED FOR USE WITHOUT HUMAN INTERVENTION AND OVERSIGHT OF THE ENTITY USING THE MODEL.  LIABILITY OF ANY  WITH THE COMPANY REVIEWER, NOT THE CREATOR.
 
 ---
 
@@ -173,3 +173,95 @@ ImpactAudit v2 is suitable for pilot, internal production use, and executive rev
 ## License
 Internal and client use only unless explicitly licensed.  
 All methodology and outputs are proprietary.
+
+## Legal Disclaimer, Liability Limitation, and Use Restrictions
+
+### No Legal, Employment, Financial, or Professional Advice
+ImpactAudit and all associated models, analyses, outputs, documentation, and artifacts are provided **for informational and decision-support purposes only**.
+
+Nothing in this repository constitutes:
+- Legal advice
+- Employment or labor advice
+- Financial, accounting, actuarial, or investment advice
+- Human resources policy guidance
+- Compliance determinations
+- Professional opinions requiring licensure
+
+Users are solely responsible for obtaining independent professional advice before making any employment, compensation, organizational, or financial decisions.
+
+---
+
+### No Employment Decisions or Individual Action
+Under no circumstances may ImpactAudit outputs be used to:
+- Make or support hiring, firing, promotion, demotion, discipline, termination, or compensation decisions
+- Target, rank, or profile individual employees
+- Automate or influence individual employment actions
+- Serve as evidence in employment disputes, investigations, or litigation
+
+Any such use is **explicitly prohibited** and constitutes misuse of the system.
+
+---
+
+### No Causal Claims or Guarantees
+ImpactAudit does **not** assert causation, prediction certainty, or guaranteed outcomes.
+
+All results are:
+- Correlational in nature
+- Sensitive to data quality, assumptions, and modeling choices
+- Subject to statistical uncertainty, bias, and error
+
+No representation or warranty is made that any intervention, action, or strategy evaluated by ImpactAudit will produce any particular outcome.
+
+---
+
+### Assumption Dependency and User Responsibility
+All financial exposure estimates, risk signals, and scenario outputs depend on **user-defined assumptions**, including but not limited to:
+- Replacement cost estimates
+- Time horizons
+- Attribution caps
+- Data completeness and accuracy
+
+Users acknowledge that changing assumptions may materially alter outputs and conclusions.  
+Responsibility for assumption selection, validation, and interpretation rests entirely with the user.
+
+---
+
+### Limitation of Liability
+To the maximum extent permitted by law:
+
+The authors, contributors, licensors, and distributors of ImpactAudit **shall not be liable** for any direct, indirect, incidental, consequential, special, punitive, or exemplary damages arising out of or related to:
+- Use or inability to use the system
+- Reliance on model outputs
+- Employment actions or business decisions
+- Data errors, omissions, or misinterpretation
+- Financial loss, revenue loss, or reputational harm
+
+This limitation applies regardless of theory of liability, including contract, tort, negligence, strict liability, or otherwise.
+
+---
+
+### No Warranty
+ImpactAudit is provided **“as is” and “as available”**, without warranties of any kind, express or implied, including but not limited to:
+- Merchantability
+- Fitness for a particular purpose
+- Accuracy
+- Completeness
+- Non-infringement
+
+No obligation exists to maintain, update, correct, or support the system.
+
+---
+
+### Indemnification
+Users agree to indemnify, defend, and hold harmless the authors, contributors, licensors, and distributors from any claims, damages, losses, liabilities, costs, or expenses arising from:
+- Unauthorized or prohibited use
+- Employment or financial decisions made using the system
+- Violations of law, regulation, or policy
+- Misrepresentation of model outputs to third parties
+
+---
+
+### Restricted Use and Acceptance
+Use of this repository constitutes acceptance of these terms.
+
+If you do not agree to these conditions, **do not use, copy, distribute, or modify this software or its outputs**.
