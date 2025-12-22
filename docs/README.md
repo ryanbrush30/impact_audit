@@ -12,7 +12,7 @@ ImpactAudit is explicitly designed for:
 - Governance, audit, and model review
 - Scenario and sensitivity analysis
 
-## It is not designed for automation or opaque black-box prediction.  IT IS NOT ALLOWED OR APPROVED FOR USE WITHOUT HUMAN INTERVENTION AND OVERSIGHT OF THE ENTITY USING THE MODEL.  LIABILITY OF ANY  WITH THE COMPANY REVIEWER, NOT THE CREATOR.
+## It is not designed for automation or opaque black-box prediction.  IT IS NOT ALLOWED OR APPROVED FOR USE WITHOUT HUMAN INTERVENTION AND OVERSIGHT OF THE ENTITY USING THE MODEL.  See Legal terms at the end of this README. 
 
 ---
 
