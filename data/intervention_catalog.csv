@@ -1,0 +1,6 @@
+intervention_type,cost_per_employee,unit_cost,cost_usd
+comp_adjustment,5000.0,5000.0,5000.0
+retention_bonus,3500.0,3500.0,3500.0
+manager_coaching,1200.0,1200.0,1200.0
+role_transfer,800.0,800.0,800.0
+workload_rebalance,500.0,500.0,500.0
