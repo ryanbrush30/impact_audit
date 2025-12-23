@@ -1,0 +1,9 @@
+{
+  "split_date": "2025-07-01 00:00:00",
+  "n_train": 20523,
+  "n_test": 5338,
+  "pos_rate_train_attrition_in_horizon": 0.010768406178433953,
+  "pos_rate_test_attrition_in_horizon": 0.007493443237167478,
+  "test_auc_attrition_in_horizon": 0.6220271800679502,
+  "test_prauc_attrition_in_horizon": 0.016861653899560815
+}
