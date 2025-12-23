@@ -55,7 +55,13 @@
       box-shadow:0 0 0 4px rgba(122,162,255,.15);
     }
     h1{margin:18px 0 10px;font-size:38px;letter-spacing:.2px}
-    .subtitle{margin:0 0 16px;color:var(--muted);max-width:920px;font-size:16px}
+    .subtitle{margin:0 0 10px;color:var(--muted);max-width:920px;font-size:16px}
+    .repo-link{
+      margin:0 0 16px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .repo-link code{color:var(--accent)}
     .grid{
       max-width:1120px;
       margin:0 auto;
@@ -154,12 +160,19 @@
     Decision-grade workforce risk and business impact modeling with conservative, audit-first design.
     Built for planning, prioritization, and executive decision support. Not for automated employment actions.
   </p>
+
+  <!-- Replace REPO_URL with your actual GitHub repo URL -->
+  <p class="repo-link">
+    Repo: <a href="REPO_URL" target="_blank" rel="noopener">REPO_URL</a>
+    <span class="small">| Suggested: add this file at <code>/docs/index.html</code> and enable GitHub Pages from <code>/docs</code>.</span>
+  </p>
+
   <div class="pillrow">
     <span class="pill">Production</span>
     <span class="pill">Time-split validated</span>
     <span class="pill">Leakage audits enforced</span>
     <span class="pill">Versioned artifacts</span>
-    <span class="pill">Rollback-safe</span>
+    <span class="pill">Artifact-backed metrics</span>
   </div>
 </header>
 
@@ -197,24 +210,12 @@
         <li><b>Stage 1:</b> Employee-period attrition risk model (time-aware training, leakage checks)</li>
         <li><b>Stage 2:</b> BU-period aggregation layer (stable KPIs suitable for executive reporting)</li>
         <li><b>Stage 3:</b> Revenue and KPI exposure modeling (production)</li>
-        <li><b>Gap 4:</b> Intervention effectiveness and ROI reporting (production)</li>
+        <li><b>Stage 4:</b> Intervention effectiveness and ROI reporting (production)</li>
       </ul>
       <p class="muted">
         Each stage writes versioned outputs and diagnostics to support traceability and governance.
-        Experimental work may occur in branches, but the mainline remains validation-first.
+        The mainline remains validation-first with reproducible artifacts.
       </p>
-    </section>
-
-    <section class="card" id="versioning">
-      <h2>Versioning and evolution</h2>
-      <ul>
-        <li><b>v1:</b> Earlier scripts and tighter coupling, limited audit surface</li>
-        <li><b>v2 (current):</b> Staged pipeline, versioned artifacts, strict time splits, leakage suite, governance posture</li>
-        <li><b>v3 (experimental):</b> Explored and rolled back after validation concerns (rollback treated as a control)</li>
-      </ul>
-      <div class="callout warn">
-        <b>Validity stance:</b> unusually high performance or “too clean” results are treated as leakage risk until proven otherwise.
-      </div>
     </section>
 
     <section class="card" id="performance">
@@ -248,12 +249,11 @@
       </div>
 
       <div class="callout warn">
-        <b>Important:</b> earlier runs with unusually high test performance were treated as leakage risk and rejected.
+        <b>Important:</b> unusually high test performance should be treated as leakage risk until audits pass.
         This repo prioritizes validity over inflated metrics.
       </div>
     </section>
 
-    <!-- INSERTED SECTION YOU REQUESTED -->
     <section class="card" id="decision-capability">
       <h2>Why this model is decision-grade for its intended use</h2>
 
@@ -283,11 +283,6 @@
         <li>Making implicit causal claims</li>
         <li>Encouraging misuse at the individual level</li>
       </ul>
-
-      <div class="callout warn">
-        <b>Validity stance:</b> unusually high performance is treated as leakage risk until proven otherwise.
-        This repo prioritizes conservative, reproducible decision support over inflated metrics.
-      </div>
     </section>
 
     <section class="card" id="quickstart">
@@ -316,7 +311,7 @@ pip install -r requirements.txt</code></pre>
       <h3>3. Run the pipeline</h3>
       <pre><code>python run_pipeline.py --config config.toml</code></pre>
 
-      <h3>4. Run Gap 4 reports</h3>
+      <h3>4. Run Stage 4 reports</h3>
       <pre><code>python run_gap4.py --config config.toml</code></pre>
 
       <div class="callout warn">
@@ -339,38 +334,49 @@ pip install -r requirements.txt</code></pre>
     </section>
 
     <section class="card" id="outputs">
-      <h2>Outputs</h2>
+      <h2>Outputs (aligned to repo)</h2>
 
-      <h3>Employee-level (referenced only)</h3>
+      <h3>Stage 1 outputs (employee-level, referenced only)</h3>
       <ul>
-        <li>Employee-period scoring outputs exist as governed artifacts</li>
-        <li>Intended for cohort analysis and aggregation, not individual action</li>
-        <li>Do not distribute employee-level outputs outside governance controls</li>
+        <li><b>Location:</b> <code>artifacts/attrition/&lt;client_id&gt;/&lt;run_id&gt;/</code></li>
+        <li><code>manifest.json</code>: run metadata, split date, base rates, AUC, PR-AUC, config, feature hash</li>
+        <li><code>feature_cols.json</code>: exact feature list for the run</li>
+        <li>Model bundle files (model binary and any supporting files) stored alongside the manifest</li>
       </ul>
 
-      <h3>Business unit level</h3>
+      <h3>Stage 2 outputs (business-unit aggregation)</h3>
       <ul>
-        <li><code>bu_period_features.csv</code>: aggregated BU-period features</li>
-        <li><code>bu_period_scored.csv</code>: outcome predictions or exposure estimates by BU-period</li>
+        <li><b>Primary file:</b> <code>bu_period_features.csv</code></li>
+        <li><b>Typical location:</b> <code>reports/</code> or configured output directory</li>
+        <li>Contains BU-period features derived from Stage 1 scoring and structure</li>
       </ul>
 
-      <h3>KPI impact</h3>
+      <h3>Stage 3 outputs (revenue and KPI exposure)</h3>
       <ul>
-        <li><code>kpi_impact_output.csv</code>: predicted deltas per KPI scenario</li>
-        <li><code>kpi_impact_summary.csv</code>: summary statistics for scenario impacts</li>
+        <li><b>Primary file:</b> <code>bu_period_scored.csv</code></li>
+        <li><b>Scenario outputs:</b> <code>kpi_impact_output.csv</code>, <code>kpi_impact_summary.csv</code></li>
+        <li><b>Typical location:</b> <code>reports/</code> or configured output directory</li>
       </ul>
 
-      <h3>Gap 4 reports</h3>
+      <h3>Stage 4 outputs (intervention effectiveness and ROI)</h3>
       <ul>
-        <li><code>gap4_effectiveness.csv</code> (or configured equivalent): intervention effectiveness outputs</li>
-        <li><code>gap4_roi.csv</code> (or configured equivalent): ROI outputs</li>
+        <li><b>Stage 4 writes two report files</b> (paths printed by <code>run_gap4.py</code>)</li>
+        <li><b>Typical location:</b> <code>reports/</code> or configured output directory</li>
+        <li>Effectiveness report: intervention effectiveness vs controls</li>
+        <li>ROI report: conservative financial return estimates</li>
       </ul>
 
       <h3>Diagnostics</h3>
       <ul>
         <li><code>debug_hard_excluded_cols.csv</code>, <code>debug_change_cols_detected.csv</code>, <code>debug_static_cols_used.csv</code></li>
         <li><code>debug_single_feature_scan_no_change.csv</code></li>
+        <li><b>Typical location:</b> <code>analysis/</code> or configured output directory</li>
       </ul>
+
+      <div class="callout warn">
+        <b>Note:</b> If your repo uses different exact filenames for Stage 4 outputs, keep the “paths printed by run_gap4.py” language and list the two conceptual outputs.
+        That stays accurate across config changes.
+      </div>
     </section>
 
     <section class="card" id="repo">
@@ -381,7 +387,7 @@ pip install -r requirements.txt</code></pre>
   jobs/                    # Entry points (train, score, aggregate)
   artifacts/               # Versioned model bundles and manifests
   analysis/                # Audits, ablations, diagnostics
-  reports/                 # Executive-ready outputs
+  reports/                 # Executive-ready outputs (configured)
   docs/                    # Methodology, governance, legal</code></pre>
     </section>
 
@@ -463,32 +469,3 @@ pip install -r requirements.txt</code></pre>
     <h2 style="margin-top:0">Contents</h2>
     <ul class="navlist">
       <li><a href="#summary">Executive summary</a><small>What it is, why it exists</small></li>
-      <li><a href="#principles">Design principles</a><small>Conservative, audit-first posture</small></li>
-      <li><a href="#architecture">Pipeline architecture</a><small>Stages 1–3 and Gap 4</small></li>
-      <li><a href="#versioning">Versioning</a><small>v1, v2, v3 rollback</small></li>
-      <li><a href="#performance">Performance</a><small>Leakage-validated metrics</small></li>
-      <li><a href="#decision-capability">Decision capability</a><small>Why this combination matters</small></li>
-      <li><a href="#quickstart">Quickstart</a><small>Run it end-to-end</small></li>
-      <li><a href="#inputs">Inputs</a><small>Expected data files</small></li>
-      <li><a href="#outputs">Outputs</a><small>Artifacts, reports, diagnostics</small></li>
-      <li><a href="#repo">Repo structure</a><small>Folder-level map</small></li>
-      <li><a href="#governance">Governance</a><small>Allowed and prohibited use</small></li>
-      <li><a href="#status">Status</a><small>Production posture</small></li>
-      <li><a href="#legal">Legal</a><small>Liability and restrictions</small></li>
-    </ul>
-    <div class="hr"></div>
-    <p class="muted small">
-      Tip: Save as <code>index.html</code> and publish via GitHub Pages from repo root or <code>/docs</code>.
-    </p>
-  </nav>
-
-</div>
-
-<footer>
-  <p>
-    Save this file as <code>index.html</code> in the repo root. For GitHub Pages, publish from the root or <code>/docs</code> and keep relative links intact.
-  </p>
-</footer>
-
-</body>
-</html>
