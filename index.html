@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ImpactAudit v2 | README</title>
+  <title>ImpactAudit v2 | Repo Index</title>
   <style>
     :root{
       --bg:#0b1220;
@@ -30,25 +30,55 @@
       color:var(--text);
       line-height:1.55;
     }
-    a{color:var(--accent);text-decoration:none}
+    a{color:var(--accent); text-decoration:none}
     a:hover{text-decoration:underline}
-    header, main, footer{max-width:1120px;margin:0 auto;padding:24px}
-    header{padding-top:46px}
-    h1{font-size:40px;margin:0 0 6px}
-    h2{margin:0 0 10px}
-    h3{margin:18px 0 8px}
-    p{margin:10px 0}
-    .muted{color:var(--muted)}
+    header{
+      padding:46px 18px 18px;
+      max-width:1120px;
+      margin:0 auto;
+    }
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:rgba(15,26,43,.55);
+      box-shadow:var(--shadow);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .dot{
+      width:9px;height:9px;border-radius:50%;
+      background:linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow:0 0 0 4px rgba(122,162,255,.15);
+    }
+    h1{margin:18px 0 10px;font-size:38px;letter-spacing:.2px}
+    .subtitle{margin:0 0 16px;color:var(--muted);max-width:920px;font-size:16px}
+    .grid{
+      max-width:1120px;
+      margin:0 auto;
+      padding:14px 18px 58px;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:14px;
+    }
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
+    nav.card{position:sticky; top:14px; align-self:start}
     .card{
       background:rgba(15,26,43,.86);
       border:1px solid var(--border);
       border-radius:16px;
-      padding:22px;
-      margin-bottom:18px;
+      padding:20px;
       box-shadow:var(--shadow);
     }
-    .tagrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-    .tag{
+    .navlist{margin:0; padding:0; list-style:none}
+    .navlist li{margin:10px 0}
+    .navlist a{color:var(--text)}
+    .navlist small{display:block;color:var(--muted);margin-top:2px}
+    .pillrow{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 2px}
+    .pill{
       padding:6px 10px;
       border-radius:999px;
       border:1px solid var(--border);
@@ -56,11 +86,22 @@
       color:var(--muted);
       font-size:13px;
     }
-    ul{padding-left:18px;margin:10px 0}
-    code{font-family:var(--mono);color:var(--accent)}
+    .muted{color:var(--muted)}
+    code, pre, .mono{font-family:var(--mono)}
+    code{color:var(--accent)}
+    pre{
+      background:rgba(11,18,32,.55);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:12px;
+      overflow:auto;
+      margin:10px 0;
+    }
+    ul{padding-left:18px}
+    .hr{height:1px;background:var(--border);margin:16px 0}
     .callout{
-      margin-top:14px;
-      padding:14px;
+      margin-top:12px;
+      padding:12px;
       border-left:4px solid var(--accent);
       background:rgba(122,162,255,.08);
       border-radius:10px;
@@ -71,9 +112,9 @@
       display:grid;
       grid-template-columns: repeat(2, minmax(0,1fr));
       gap:12px;
-      margin-top:12px;
+      margin-top:10px;
     }
-    @media (max-width: 900px){ .kvs{grid-template-columns: 1fr;} }
+    @media (max-width: 900px){ .kvs{grid-template-columns:1fr} }
     .kv{
       border:1px solid var(--border);
       border-radius:12px;
@@ -95,116 +136,359 @@
     .badge.ok{color:#bfffd9;border-color:rgba(78,225,160,.35);background:rgba(78,225,160,.10)}
     .badge.warn{color:#ffe3a3;border-color:rgba(255,204,102,.35);background:rgba(255,204,102,.10)}
     .badge.danger{color:#ffd0d0;border-color:rgba(255,107,107,.35);background:rgba(255,107,107,.10)}
-    .hr{height:1px;background:var(--border);margin:16px 0}
-    footer{padding-bottom:48px}
+    .small{font-size:13px}
+    footer{
+      max-width:1120px;
+      margin:0 auto;
+      padding:18px;
+      color:var(--muted);
+    }
   </style>
 </head>
 
 <body>
-
 <header>
+  <div class="kicker"><span class="dot"></span> ImpactAudit v2 | Repo Index</div>
   <h1>ImpactAudit v2</h1>
-  <p class="muted">
-    Decision-grade workforce risk and business impact modeling.<br />
-    Built for executive scrutiny, conservative interpretation, and audit readiness.
+  <p class="subtitle">
+    Decision-grade workforce risk and business impact modeling with conservative, audit-first design.
+    Built for planning, prioritization, and executive decision support. Not for automated employment actions.
   </p>
-  <div class="tagrow">
-    <span class="tag">Production</span>
-    <span class="tag">Time-split validated</span>
-    <span class="tag">Artifact versioned</span>
-    <span class="tag">Governance-first</span>
+  <div class="pillrow">
+    <span class="pill">Production</span>
+    <span class="pill">Time-split validated</span>
+    <span class="pill">Leakage audits enforced</span>
+    <span class="pill">Versioned artifacts</span>
+    <span class="pill">Rollback-safe</span>
   </div>
 </header>
 
-<main>
+<div class="grid">
 
-  <section class="card" id="overview">
-    <h2>Purpose and intent</h2>
-    <p>
-      ImpactAudit v2 is a modular analytics framework designed to quantify how workforce risk
-      translates into measurable business and operational exposure.
-    </p>
-    <p>
-      It prioritizes interpretability, uncertainty awareness, and conservative conclusions.
-      The system is designed for executive decision support and finance partnership, not automation.
-    </p>
-    <div class="callout">
-      <b>Important:</b> This system is correlation-aware, not causal. Outputs are decision support signals, not guarantees.
-    </div>
-  </section>
+  <main>
 
-  <section class="card" id="scope">
-    <h2>What this system does and does not do</h2>
+    <section class="card" id="summary">
+      <h2>Executive summary</h2>
+      <p class="muted">
+        ImpactAudit v2 connects workforce risk signals to downstream business exposure using a staged, auditable pipeline.
+        The system favors validity and governance over inflated metrics. It is designed to rank and prioritize cohorts,
+        quantify exposure, and support scenario discussions with executives and finance.
+      </p>
 
-    <h3>It does</h3>
-    <ul>
-      <li>Produce workforce risk signals suitable for planning and prioritization</li>
-      <li>Aggregate employee-level signals into business-unit and period KPIs</li>
-      <li>Translate people risk into finance-relevant exposure language</li>
-      <li>Support scenario analysis and sensitivity testing</li>
-      <li>Generate reproducible artifacts with manifests and hashes for audit</li>
-    </ul>
-
-    <h3>It does not</h3>
-    <ul>
-      <li>Make causal claims</li>
-      <li>Provide individual prescriptions or automated employment actions</li>
-      <li>Serve as a performance management or disciplinary tool</li>
-      <li>Guarantee outcomes</li>
-    </ul>
-
-    <div class="callout danger">
-      <b>Prohibited use:</b> Do not use ImpactAudit outputs to support hiring, firing, promotion, demotion, discipline, termination, or compensation decisions for individuals.
-    </div>
-  </section>
-
-  <section class="card" id="architecture">
-    <h2>Current architecture (v2)</h2>
-    <ul>
-      <li><b>Stage 1:</b> Employee-level attrition risk modeling (time-aware validation)</li>
-      <li><b>Stage 2:</b> Business-unit and period aggregation (interpretability layer)</li>
-      <li><b>Stage 3:</b> Revenue and KPI exposure modeling (production)</li>
-    </ul>
-    <p class="muted">
-      Each stage produces versioned, immutable artifacts with explicit configuration manifests. Rollback is supported and treated as a normal control.
-    </p>
-  </section>
-
-  <section class="card" id="versioning">
-    <h2>Versioning and evolution</h2>
-    <ul>
-      <li><b>v1:</b> Earlier, more coupled scripts and limited auditability</li>
-      <li><b>v2 (current):</b> Modular pipeline, strict time splits, versioned artifacts, leakage audits, governance posture</li>
-      <li><b>v3 (experimental):</b> Explored, then rolled back intentionally after validation signals did not meet standards</li>
-    </ul>
-    <div class="callout">
-      <b>Note:</b> Rollback is a control. It reflects prioritizing validity and safety over inflated metrics.
-    </div>
-  </section>
-
-  <section class="card" id="performance">
-    <h2>Leakage-validated performance (guidance)</h2>
-    <p class="muted">
-      In low base-rate environments, decision value comes from prioritization and lift, not raw accuracy. Interpret PR-AUC relative to the base rate.
-    </p>
-
-    <div class="kvs">
-      <div class="kv">
-        <div class="label">Attrition model (typical, leakage-validated)</div>
-        <div class="value">AUC: ~ 0.63 to 0.67 <span class="badge ok">Validated posture</span></div>
-        <div class="muted">Reflects low-event structural signal limits.</div>
+      <div class="callout">
+        <b>Core idea:</b> In low base-rate environments, the decision value is cohort prioritization and lift, not perfect individual prediction.
       </div>
-      <div class="kv">
-        <div class="label">Lift (typical)</div>
-        <div class="value">Lift@Top-10%: ~ 2.0x to 2.5x <span class="badge ok">Operational</span></div>
-        <div class="muted">Good for cohort targeting and prioritization queues.</div>
+    </section>
+
+    <section class="card" id="principles">
+      <h2>Design principles</h2>
+      <ul>
+        <li>Conservatism over optimism</li>
+        <li>Auditability over automation</li>
+        <li>Interpretability over complexity</li>
+        <li>Human review over prescriptions</li>
+        <li>Uncertainty surfaced, not hidden</li>
+      </ul>
+    </section>
+
+    <section class="card" id="architecture">
+      <h2>Pipeline architecture</h2>
+      <ul>
+        <li><b>Stage 1:</b> Employee-period attrition risk model (time-aware training, leakage checks)</li>
+        <li><b>Stage 2:</b> BU-period aggregation layer (stable KPIs suitable for executive reporting)</li>
+        <li><b>Stage 3:</b> Revenue and KPI exposure modeling (production)</li>
+        <li><b>Gap 4:</b> Intervention effectiveness and ROI reporting (production)</li>
+      </ul>
+      <p class="muted">
+        Each stage writes versioned outputs and diagnostics to support traceability and governance.
+        Experimental work may occur in branches, but the mainline remains validation-first.
+      </p>
+    </section>
+
+    <section class="card" id="versioning">
+      <h2>Versioning and evolution</h2>
+      <ul>
+        <li><b>v1:</b> Earlier scripts and tighter coupling, limited audit surface</li>
+        <li><b>v2 (current):</b> Staged pipeline, versioned artifacts, strict time splits, leakage suite, governance posture</li>
+        <li><b>v3 (experimental):</b> Explored and rolled back after validation concerns (rollback treated as a control)</li>
+      </ul>
+      <div class="callout warn">
+        <b>Validity stance:</b> unusually high performance or “too clean” results are treated as leakage risk until proven otherwise.
       </div>
-      <div class="kv">
-        <div class="label">PR-AUC (typical)</div>
-        <div class="value">~ 0.015 vs ~ 0.006 base <span class="badge ok">Expected</span></div>
-        <div class="muted">Evaluate as enrichment over random selection.</div>
+    </section>
+
+    <section class="card" id="performance">
+      <h2>Leakage-validated performance</h2>
+      <p class="muted">
+        In low-attrition environments, lift and prioritization are the decision-relevant metrics.
+        PR-AUC must be interpreted relative to the base rate.
+      </p>
+
+      <div class="kvs">
+        <div class="kv">
+          <div class="label">Attrition model (current run)</div>
+          <div class="value">AUC: 0.622 <span class="badge ok">Manifest-backed</span></div>
+          <div class="muted small">Split date: 2025-07-01. Horizon: 3 months. Test base rate: 0.75%.</div>
+        </div>
+        <div class="kv">
+          <div class="label">Attrition model (current run)</div>
+          <div class="value">PR-AUC: 0.0169 <span class="badge ok">Manifest-backed</span></div>
+          <div class="muted small">Interpret as enrichment over baseline, not an absolute score.</div>
+        </div>
+        <div class="kv">
+          <div class="label">Lift (typical guidance)</div>
+          <div class="value">Lift@Top-10% ~ 2.0x to 2.5x <span class="badge ok">Operational</span></div>
+          <div class="muted small">Best for prioritization queues and cohort interventions.</div>
+        </div>
+        <div class="kv">
+          <div class="label">Stage 3 outcome modeling</div>
+          <div class="value">Context dependent <span class="badge warn">Volatility</span></div>
+          <div class="muted small">Performance varies with KPI noise, measurement error, and outcome volatility.</div>
+        </div>
       </div>
-      <div class="kv">
-        <div class="label">Revenue and KPI exposure modeling</div>
-        <div class="value">Context dependent <span class="badge warn">Outcome volatility</span></div>
-        <div class="muted">Performance varies with stability of downstream KPIs and outcome measurement error.</div
+
+      <div class="callout warn">
+        <b>Important:</b> earlier runs with unusually high test performance were treated as leakage risk and rejected.
+        This repo prioritizes validity over inflated metrics.
+      </div>
+    </section>
+
+    <!-- INSERTED SECTION YOU REQUESTED -->
+    <section class="card" id="decision-capability">
+      <h2>Why this model is decision-grade for its intended use</h2>
+
+      <p class="muted">
+        What matters is the combination below. This is the basis for decision capability in low-event workforce settings,
+        not a single headline metric.
+      </p>
+
+      <h3>What matters (the combination)</h3>
+      <ul>
+        <li><b>Low base rate</b> environments where raw accuracy is not the decision metric</li>
+        <li><b>Stable structural features</b> that remain interpretable and governance-safe</li>
+        <li><b>Lift-driven prioritization</b> to enrich high-risk cohorts for planning and focus</li>
+        <li><b>Artifact-backed validation</b> with reproducible runs, manifests, and feature hashes</li>
+        <li><b>Governance constraints</b> that prevent misuse and enforce human review</li>
+        <li><b>Scenario-aware outputs</b> that support planning and impact discussions</li>
+      </ul>
+
+      <div class="callout">
+        <b>Why this matters:</b> that combination is rare in people analytics.
+      </div>
+
+      <h3>Where most systems fail</h3>
+      <ul>
+        <li>Chasing higher AUC with leaky features</li>
+        <li>Overfitting volatile behavioral signals</li>
+        <li>Making implicit causal claims</li>
+        <li>Encouraging misuse at the individual level</li>
+      </ul>
+
+      <div class="callout warn">
+        <b>Validity stance:</b> unusually high performance is treated as leakage risk until proven otherwise.
+        This repo prioritizes conservative, reproducible decision support over inflated metrics.
+      </div>
+    </section>
+
+    <section class="card" id="quickstart">
+      <h2>Quickstart</h2>
+      <p class="muted">
+        Commands below are representative. Adjust paths to match your local environment and config layout.
+        Keep time splits and leakage audits enabled.
+      </p>
+
+      <h3>1. Create environment</h3>
+      <pre><code>python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# macOS/Linux
+source .venv/bin/activate
+
+pip install -r requirements.txt</code></pre>
+
+      <h3>2. Configure</h3>
+      <ul>
+        <li>Confirm <code>config.toml</code> points to input and output locations</li>
+        <li>Verify date parsing and consistent time zone assumptions</li>
+        <li>Verify stable IDs: <code>employee_id</code>, <code>business_unit_id</code></li>
+      </ul>
+
+      <h3>3. Run the pipeline</h3>
+      <pre><code>python run_pipeline.py --config config.toml</code></pre>
+
+      <h3>4. Run Gap 4 reports</h3>
+      <pre><code>python run_gap4.py --config config.toml</code></pre>
+
+      <div class="callout warn">
+        <b>Rule:</b> if a run shows unusually high test performance, treat it as leakage risk until audits pass.
+      </div>
+    </section>
+
+    <section class="card" id="inputs">
+      <h2>Data inputs</h2>
+      <ul>
+        <li><code>employees.csv</code>: employee_id, hire_date, term_date, business_unit_id, optional job_family, level, location, manager_id</li>
+        <li><code>comp_history.csv</code>: employee_id, effective_date, base_pay, bonus_target, compa_ratio, merit_pct, promo_flag</li>
+        <li><code>perf_history.csv</code>: employee_id, review_date, rating, calibrated_rating, goal_attainment_pct</li>
+        <li><code>business_kpi.csv</code>: business_unit_id, period_start, revenue, operating_margin_pct, productivity_index, avg_vacancy_days, quality_incidents, headcount_proxy</li>
+      </ul>
+
+      <div class="callout">
+        <b>Data quality stance:</b> the pipeline should degrade conservatively and surface warnings rather than silently produce confident outputs.
+      </div>
+    </section>
+
+    <section class="card" id="outputs">
+      <h2>Outputs</h2>
+
+      <h3>Employee-level (referenced only)</h3>
+      <ul>
+        <li>Employee-period scoring outputs exist as governed artifacts</li>
+        <li>Intended for cohort analysis and aggregation, not individual action</li>
+        <li>Do not distribute employee-level outputs outside governance controls</li>
+      </ul>
+
+      <h3>Business unit level</h3>
+      <ul>
+        <li><code>bu_period_features.csv</code>: aggregated BU-period features</li>
+        <li><code>bu_period_scored.csv</code>: outcome predictions or exposure estimates by BU-period</li>
+      </ul>
+
+      <h3>KPI impact</h3>
+      <ul>
+        <li><code>kpi_impact_output.csv</code>: predicted deltas per KPI scenario</li>
+        <li><code>kpi_impact_summary.csv</code>: summary statistics for scenario impacts</li>
+      </ul>
+
+      <h3>Gap 4 reports</h3>
+      <ul>
+        <li><code>gap4_effectiveness.csv</code> (or configured equivalent): intervention effectiveness outputs</li>
+        <li><code>gap4_roi.csv</code> (or configured equivalent): ROI outputs</li>
+      </ul>
+
+      <h3>Diagnostics</h3>
+      <ul>
+        <li><code>debug_hard_excluded_cols.csv</code>, <code>debug_change_cols_detected.csv</code>, <code>debug_static_cols_used.csv</code></li>
+        <li><code>debug_single_feature_scan_no_change.csv</code></li>
+      </ul>
+    </section>
+
+    <section class="card" id="repo">
+      <h2>Repository structure</h2>
+      <pre><code>impactaudit/
+  data/                    # Curated inputs (not raw dumps)
+  src/impactaudit/          # Core library code
+  jobs/                    # Entry points (train, score, aggregate)
+  artifacts/               # Versioned model bundles and manifests
+  analysis/                # Audits, ablations, diagnostics
+  reports/                 # Executive-ready outputs
+  docs/                    # Methodology, governance, legal</code></pre>
+    </section>
+
+    <section class="card" id="governance">
+      <h2>Governance</h2>
+      <ul>
+        <li>Intended for workforce planning, scenario modeling, and executive decision support.</li>
+        <li>Not intended for automated employment decisions or disciplinary action.</li>
+        <li>KPI what-if outputs are model-based associations, not causal claims.</li>
+        <li>Apply appropriate access controls and human review.</li>
+      </ul>
+
+      <div class="callout danger">
+        <b>Prohibited use:</b> do not use this system to make or support individual employment decisions.
+      </div>
+    </section>
+
+    <section class="card" id="status">
+      <h2>Status</h2>
+      <ul>
+        <li>Architecture complete</li>
+        <li>Leakage suite implemented and enforced</li>
+        <li>Production-appropriate for intended use: structural risk stratification, planning, and impact exposure</li>
+        <li>Further gains typically require new data signals, not more tuning</li>
+      </ul>
+
+      <div class="hr"></div>
+
+      <p class="muted">
+        Author: <b>Ryan Brush</b><br />
+        Enterprise Data, People Analytics, and AI Modeling
+      </p>
+    </section>
+
+    <section class="card" id="legal">
+      <h2>Legal disclaimer, liability limitation, and restricted use</h2>
+
+      <h3>No legal, employment, financial, or professional advice</h3>
+      <p class="muted">
+        ImpactAudit and all associated models, analyses, outputs, documentation, and artifacts are provided for informational and decision-support purposes only.
+        Nothing in this repository constitutes legal advice, employment or labor advice, financial, accounting, actuarial, or investment advice, compliance determinations,
+        or professional opinions requiring licensure. Users are responsible for obtaining independent professional advice before acting.
+      </p>
+
+      <h3>No employment decisions or individual action</h3>
+      <p class="muted">
+        Under no circumstances may outputs be used to make or support hiring, firing, promotion, demotion, discipline, termination, or compensation decisions,
+        target or profile individual employees, automate individual employment actions, or serve as evidence in disputes, investigations, or litigation.
+        Any such use is explicitly prohibited.
+      </p>
+
+      <h3>No causal claims or guarantees</h3>
+      <p class="muted">
+        ImpactAudit does not assert causation or guarantee outcomes. Results are sensitive to data quality, assumptions, and uncertainty.
+        No warranty is made that any action evaluated will produce any particular outcome.
+      </p>
+
+      <h3>Limitation of liability and no warranty</h3>
+      <p class="muted">
+        To the maximum extent permitted by law, the authors, contributors, licensors, and distributors are not liable for any direct, indirect, incidental,
+        consequential, special, punitive, or exemplary damages arising from use, inability to use, or reliance on this system or its outputs.
+        ImpactAudit is provided "as is" and "as available" without warranties of any kind, express or implied.
+      </p>
+
+      <h3>Indemnification</h3>
+      <p class="muted">
+        Users agree to indemnify, defend, and hold harmless the authors, contributors, licensors, and distributors from claims, damages, losses, liabilities,
+        costs, or expenses arising from unauthorized or prohibited use, employment or financial decisions made using the system, or violations of law, regulation, or policy.
+      </p>
+
+      <div class="callout">
+        Full legal terms are also provided in <code>LEGAL.md</code>. Use of this repository constitutes acceptance of these restrictions.
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="card" aria-label="Section navigation">
+    <h2 style="margin-top:0">Contents</h2>
+    <ul class="navlist">
+      <li><a href="#summary">Executive summary</a><small>What it is, why it exists</small></li>
+      <li><a href="#principles">Design principles</a><small>Conservative, audit-first posture</small></li>
+      <li><a href="#architecture">Pipeline architecture</a><small>Stages 1–3 and Gap 4</small></li>
+      <li><a href="#versioning">Versioning</a><small>v1, v2, v3 rollback</small></li>
+      <li><a href="#performance">Performance</a><small>Leakage-validated metrics</small></li>
+      <li><a href="#decision-capability">Decision capability</a><small>Why this combination matters</small></li>
+      <li><a href="#quickstart">Quickstart</a><small>Run it end-to-end</small></li>
+      <li><a href="#inputs">Inputs</a><small>Expected data files</small></li>
+      <li><a href="#outputs">Outputs</a><small>Artifacts, reports, diagnostics</small></li>
+      <li><a href="#repo">Repo structure</a><small>Folder-level map</small></li>
+      <li><a href="#governance">Governance</a><small>Allowed and prohibited use</small></li>
+      <li><a href="#status">Status</a><small>Production posture</small></li>
+      <li><a href="#legal">Legal</a><small>Liability and restrictions</small></li>
+    </ul>
+    <div class="hr"></div>
+    <p class="muted small">
+      Tip: Save as <code>index.html</code> and publish via GitHub Pages from repo root or <code>/docs</code>.
+    </p>
+  </nav>
+
+</div>
+
+<footer>
+  <p>
+    Save this file as <code>index.html</code> in the repo root. For GitHub Pages, publish from the root or <code>/docs</code> and keep relative links intact.
+  </p>
+</footer>
+
+</body>
+</html>
