@@ -1,0 +1,6 @@
+intervention_type,intervention_spend,roi_ratio,delta_attrition,notes,recommendation
+comp_adjustment,2400000.0,2.1953968679166667,-0.2,,Keep
+retention_bonus,574000.0,0.0,0.0019034907537035,insufficient_treated_in_some_buckets,Review manually
+manager_coaching,138000.0,1.037876419782773,-0.0236332033205562,insufficient_treated_in_some_buckets,Review manually
+role_transfer,79200.0,0.0,0.0262085573210522,insufficient_treated_in_some_buckets,Review manually
+workload_rebalance,35000.0,0.0,0.0095917878750685,insufficient_treated_in_some_buckets,Review manually

@@ -1,0 +1,7 @@
+intervention_type,n_treated,n_control,attrition_rate_treated,attrition_rate_control,delta_attrition,treated_avg_risk,control_avg_risk,notes
+__overall__,928,5270,0.032327586206896554,0.0635673624288425,-0.03123977622194595,,,unmatched_baseline
+comp_adjustment,480,445,0.0,0.2,-0.2,,,
+retention_bonus,164,5270,0.06707317073170732,0.06516967997800378,0.0019034907537035378,,,insufficient_treated_in_some_buckets
+manager_coaching,115,5270,0.043478260869565216,0.0671114641901215,-0.02363320332055628,,,insufficient_treated_in_some_buckets
+role_transfer,99,5270,0.09090909090909091,0.06470053358803862,0.02620855732105229,,,insufficient_treated_in_some_buckets
+workload_rebalance,70,5270,0.07142857142857142,0.06183678355350292,0.009591787875068501,,,insufficient_treated_in_some_buckets

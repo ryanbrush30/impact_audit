@@ -1,0 +1,6 @@
+intervention_type,n_treated,n_control,attrition_rate_treated,attrition_rate_control,delta_attrition,treated_avg_risk,control_avg_risk,notes,intervention_spend,avg_value_per_exit,estimated_avoided_exits,conservative_avoided_exits,value_preserved,roi_ratio
+comp_adjustment,480,445,0.0,0.2,-0.2,,,,2400000.0,109769.84339583333,96.0,48.0,5268952.483,2.1953968679166667
+retention_bonus,164,5270,0.06707317073170732,0.06516967997800378,0.0019034907537035378,,,insufficient_treated_in_some_buckets,574000.0,107280.31359756098,0.0,0.0,0.0,0.0
+manager_coaching,115,5270,0.043478260869565216,0.0671114641901215,-0.02363320332055628,,,insufficient_treated_in_some_buckets,138000.0,105398.46730434783,2.7178183818639723,1.3589091909319861,143226.9459300227,1.037876419782773
+role_transfer,99,5270,0.09090909090909091,0.06470053358803862,0.02620855732105229,,,insufficient_treated_in_some_buckets,79200.0,100859.56383838384,0.0,0.0,0.0,0.0
+workload_rebalance,70,5270,0.07142857142857142,0.06183678355350292,0.009591787875068501,,,insufficient_treated_in_some_buckets,35000.0,96270.98885714286,0.0,0.0,0.0,0.0
