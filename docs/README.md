@@ -124,6 +124,7 @@ ImpactAudit enforces guardrails by design:
 - No automated actions
 - Human review required for interpretation
 - Conservative language and confidence flags
+- Bias is controlled but only at the data decision level - not the outputs that can impact bias from humans.  
 
 The system is explicitly resistant to misuse.
 
@@ -131,7 +132,6 @@ The system is explicitly resistant to misuse.
 
 ## Known Limitations
 - Correlation-aware, not causal
-- Selection bias mitigated, not eliminated
 - Dependent on disciplined data hygiene
 - Financial exposure relies on explicit assumptions
 - Not all risk warrants intervention
